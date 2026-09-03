@@ -20,6 +20,19 @@ class MatchResult:
     raw_matches_count: int
     filtered_matches_count: int
 
+    def to_match_records(self, method: str = "SIFT") -> List[Dict[str, Any]]:
+        """Exports matches in the standardized SIH26166 format."""
+        records = []
+        for i in range(len(self.source_points)):
+            records.append({
+                "reference": [round(float(self.reference_points[i, 0]), 3), round(float(self.reference_points[i, 1]), 3)],
+                "moving": [round(float(self.source_points[i, 0]), 3), round(float(self.source_points[i, 1]), 3)],
+                "confidence": round(float(self.confidence[i]), 4) if len(self.confidence) > i else None,
+                "distance": round(float(self.distances[i]), 4) if len(self.distances) > i else None,
+                "method": method
+            })
+        return records
+
 
 class FeatureMatcher:
     """Robust feature matcher with ratio test and cross-check filtering."""

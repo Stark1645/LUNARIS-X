@@ -266,6 +266,7 @@ class ProposedRegistrationPipeline:
         )
 
         # 9. Metric Calculation
+        spatial_quality = dist_stats.get("spatial_quality_status", "ACCEPTABLE") if self.enable_spatial_filter and len(geom_res.inlier_src_points) > 16 else "ACCEPTABLE"
         latency = (time.time() - start_time) * 1000.0
         metrics = RegistrationEvaluator.evaluate(
             src_inliers=inliers_src,
@@ -278,7 +279,8 @@ class ProposedRegistrationPipeline:
             H_ground_truth=ground_truth_homography,
             latency_ms=latency,
             is_synthetic=is_synthetic,
-            dataset_category=dataset_category
+            dataset_category=dataset_category,
+            spatial_quality_status=spatial_quality
         )
 
         # 10. Visualization Rendering

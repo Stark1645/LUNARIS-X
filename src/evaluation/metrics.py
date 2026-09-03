@@ -2,6 +2,7 @@
 Scientific Metric Evaluation Module for SIH26166.
 Computes RMSE, Inlier Match Count, Inlier Ratio, Sub-Pixel Accuracy,
 Spatial Distribution Gini Coefficient, and Processing Latency.
+Strictly distinguishes Reprojection Residuals vs Analytical Ground Truth Error.
 """
 
 import numpy as np
@@ -13,22 +14,28 @@ from dataclasses import dataclass, asdict
 class RegistrationMetrics:
     """Scientific registration quality metrics record."""
     status: str  # SUCCESS | FAILED
-    algorithm: str  # SIFT_Baseline | RIFT_Baseline | etc.
+    algorithm: str  # SIFT_Baseline | RIFT_Baseline | Proposed_Method
     transformation_model: str  # TRANSLATION | SIMILARITY | AFFINE | HOMOGRAPHY
     
     # Core SIH Metrics
-    rmse_inliers: float  # RMSE of inlier correspondences [pixels]
+    rmse_inliers: float  # RMSE of inlier correspondences [pixels] (reprojection residual)
     rmse_ground_truth: Optional[float]  # RMSE against analytical ground truth (if available) [pixels]
+    ground_truth_status: str  # AVAILABLE | NOT_AVAILABLE
     inlier_match_count: int  # Number of verified geometric inliers
     candidate_match_count: int  # Number of raw candidate matches
     inlier_ratio_percent: float  # Inlier Ratio (%)
     
-    # Sub-Pixel Precision
+    # Sub-Pixel Precision & Residuals
     mean_subpixel_residual: float  # Mean residual reprojection error [pixels]
+    mae_residuals: float  # Mean Absolute Error of residuals [pixels]
+    median_residual: float  # Median residual [pixels]
+    max_residual: float  # Maximum residual error [pixels]
     subpixel_accuracy_rate_05px: float  # % inliers with error < 0.5 px
+    subpixel_accuracy_rate_10px: float  # % inliers with error < 1.0 px
     
     # Spatial Dispersion
     spatial_gini_coefficient: float  # Keypoint Gini G_k in [0, 1]
+    spatial_quality_status: str  # GOOD | ACCEPTABLE | POOR
     
     # Execution Performance
     latency_ms: float  # Total processing latency in milliseconds
@@ -56,7 +63,8 @@ class RegistrationEvaluator:
         H_ground_truth: Optional[np.ndarray] = None,
         latency_ms: float = 0.0,
         is_synthetic: bool = True,
-        dataset_category: str = "SYNTHETIC_BENCHMARK"
+        dataset_category: str = "SYNTHETIC_BENCHMARK",
+        spatial_quality_status: str = "POOR"
     ) -> RegistrationMetrics:
         """
         Computes the complete SIH26166 evaluation metric suite.
@@ -70,12 +78,18 @@ class RegistrationEvaluator:
                 transformation_model=transformation_model,
                 rmse_inliers=float("inf"),
                 rmse_ground_truth=None,
+                ground_truth_status="NOT_AVAILABLE" if H_ground_truth is None else "AVAILABLE",
                 inlier_match_count=n_inliers,
                 candidate_match_count=candidate_count,
                 inlier_ratio_percent=0.0,
                 mean_subpixel_residual=float("inf"),
+                mae_residuals=float("inf"),
+                median_residual=float("inf"),
+                max_residual=float("inf"),
                 subpixel_accuracy_rate_05px=0.0,
+                subpixel_accuracy_rate_10px=0.0,
                 spatial_gini_coefficient=1.0,
+                spatial_quality_status="POOR",
                 latency_ms=latency_ms,
                 is_synthetic=is_synthetic,
                 dataset_category=dataset_category
@@ -92,14 +106,20 @@ class RegistrationEvaluator:
         residuals = np.sqrt(np.sum((ref_inliers - pred_ref) ** 2, axis=1))
         rmse_inliers = float(np.sqrt(np.mean(residuals ** 2)))
         mean_subpixel_residual = float(np.mean(residuals))
+        mae_residuals = float(np.mean(np.abs(residuals)))
+        median_residual = float(np.median(residuals))
+        max_residual = float(np.max(residuals))
         spa_05px = float(np.sum(residuals < 0.5) / n_inliers * 100.0)
+        spa_10px = float(np.sum(residuals < 1.0) / n_inliers * 100.0)
 
         # 3. Inlier Ratio
         inlier_ratio = float(n_inliers / candidate_count * 100.0) if candidate_count > 0 else 0.0
 
         # 4. Ground Truth RMSE (if analytical ground truth available)
         rmse_gt = None
+        gt_status = "NOT_AVAILABLE"
         if H_ground_truth is not None:
+            gt_status = "AVAILABLE"
             gt_hom = (H_ground_truth @ pts_hom.T).T
             w_gt = gt_hom[:, 2:3]
             w_gt[np.abs(w_gt) < 1e-10] = 1e-10
@@ -115,15 +135,21 @@ class RegistrationEvaluator:
             status="SUCCESS",
             algorithm=algorithm_name,
             transformation_model=transformation_model,
-            rmse_inliers=rmse_inliers,
-            rmse_ground_truth=rmse_gt,
+            rmse_inliers=round(rmse_inliers, 4),
+            rmse_ground_truth=round(rmse_gt, 4) if rmse_gt is not None else None,
+            ground_truth_status=gt_status,
             inlier_match_count=n_inliers,
             candidate_match_count=candidate_count,
-            inlier_ratio_percent=inlier_ratio,
-            mean_subpixel_residual=mean_subpixel_residual,
-            subpixel_accuracy_rate_05px=spa_05px,
-            spatial_gini_coefficient=gini_k,
-            latency_ms=latency_ms,
+            inlier_ratio_percent=round(inlier_ratio, 2),
+            mean_subpixel_residual=round(mean_subpixel_residual, 4),
+            mae_residuals=round(mae_residuals, 4),
+            median_residual=round(median_residual, 4),
+            max_residual=round(max_residual, 4),
+            subpixel_accuracy_rate_05px=round(spa_05px, 2),
+            subpixel_accuracy_rate_10px=round(spa_10px, 2),
+            spatial_gini_coefficient=round(gini_k, 4),
+            spatial_quality_status=spatial_quality_status,
+            latency_ms=round(latency_ms, 2),
             is_synthetic=is_synthetic,
             dataset_category=dataset_category
         )

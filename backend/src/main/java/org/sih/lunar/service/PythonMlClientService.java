@@ -88,4 +88,72 @@ public class PythonMlClientService {
             throw new RuntimeException("Failed to parse Python ML response", e);
         }
     }
+
+    public JsonNode scanPradanCatalog(String directoryPath, String dataCategory, Boolean isSynthetic) {
+        String url = this.pythonBaseUrl + "/api/v1/catalog/scan";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("directory_path", directoryPath != null ? directoryPath : "data/pradan");
+        body.add("data_category", dataCategory != null ? dataCategory : "AUTHENTIC_CH2_PRADAN");
+        body.add("is_synthetic", isSynthetic != null ? isSynthetic.toString() : "false");
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+            return objectMapper.readTree(response.getBody());
+        } catch (Exception e) {
+            throw new PythonServiceUnavailableException("Failed to scan PRADAN catalog: " + e.getMessage(), e);
+        }
+    }
+
+    public JsonNode getPradanProducts(String instrument) {
+        String url = this.pythonBaseUrl + "/api/v1/catalog/products" + (instrument != null ? "?instrument=" + instrument : "");
+        try {
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+            return objectMapper.readTree(response.getBody());
+        } catch (Exception e) {
+            throw new PythonServiceUnavailableException("Failed to query PRADAN products: " + e.getMessage(), e);
+        }
+    }
+
+    public JsonNode checkOverlap(String referenceId, String movingId, Boolean isBenchmark) {
+        String url = this.pythonBaseUrl + "/api/v1/overlap/check";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("reference_id", referenceId);
+        body.add("moving_id", movingId);
+        body.add("is_benchmark", isBenchmark != null ? isBenchmark.toString() : "false");
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+            return objectMapper.readTree(response.getBody());
+        } catch (Exception e) {
+            throw new PythonServiceUnavailableException("Failed to check overlap: " + e.getMessage(), e);
+        }
+    }
+
+    public JsonNode selectReferenceMoving(String productAId, String productBId, String userChoice, String objective) {
+        String url = this.pythonBaseUrl + "/api/v1/reference/select";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("product_a_id", productAId);
+        body.add("product_b_id", productBId);
+        if (userChoice != null) body.add("user_choice", userChoice);
+        if (objective != null) body.add("registration_objective", objective);
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+            return objectMapper.readTree(response.getBody());
+        } catch (Exception e) {
+            throw new PythonServiceUnavailableException("Failed to select reference/moving: " + e.getMessage(), e);
+        }
+    }
 }

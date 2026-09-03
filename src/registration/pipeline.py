@@ -282,6 +282,8 @@ class LunarRegistrationPipeline:
             reference_shape=(h_ref, w_ref)
         )
 
+        spatial_quality = dist_stats.get("spatial_quality_status", "ACCEPTABLE") if self.enable_spatial_filter and len(geom_res.inlier_src_points) > 16 else "ACCEPTABLE"
+
         # -------------------------------------------------------------
         # 14. EVALUATION & METRICS CALCULATION
         # -------------------------------------------------------------
@@ -297,7 +299,8 @@ class LunarRegistrationPipeline:
             H_ground_truth=ground_truth_homography,
             latency_ms=latency,
             is_synthetic=is_synthetic,
-            dataset_category=dataset_category
+            dataset_category=dataset_category,
+            spatial_quality_status=spatial_quality
         )
 
         # -------------------------------------------------------------

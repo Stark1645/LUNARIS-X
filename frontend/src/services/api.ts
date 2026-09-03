@@ -87,6 +87,35 @@ export const apiService = {
     const resp = await apiClient.get<ExperimentDTO[]>(`/experiments/suite/${encodeURIComponent(suiteName)}`);
     return resp.data;
   },
+
+  // PRADAN Catalog & Overlap Engine
+  async scanPradan(directoryPath: string = 'data/pradan'): Promise<any> {
+    const resp = await apiClient.post('/pradan/scan', null, {
+      params: { directoryPath }
+    });
+    return resp.data;
+  },
+
+  async getPradanProducts(instrument?: string): Promise<any> {
+    const resp = await apiClient.get('/pradan/products', {
+      params: instrument ? { instrument } : undefined
+    });
+    return resp.data;
+  },
+
+  async checkOverlap(referenceId: string, movingId: string, isBenchmark: boolean = false): Promise<any> {
+    const resp = await apiClient.post('/pradan/overlap', null, {
+      params: { referenceId, movingId, isBenchmark }
+    });
+    return resp.data;
+  },
+
+  async selectRoles(productAId: string, productBId: string, userChoice?: string, objective?: string): Promise<any> {
+    const resp = await apiClient.post('/pradan/reference-select', null, {
+      params: { productAId, productBId, userChoice, objective }
+    });
+    return resp.data;
+  },
 };
 
 export function parseApiError(error: unknown): string {

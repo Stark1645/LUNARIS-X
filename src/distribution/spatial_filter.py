@@ -114,6 +114,15 @@ class SpatialDistributionFilter:
 
         filtered_gini = self.compute_gini_coefficient(filtered_src, image_shape, self.grid_size)
 
+        # Compute objective spatial quality status
+        bin_ratio = float(len(bins) / (self.grid_size ** 2))
+        if bin_ratio >= 0.75 and filtered_gini <= 0.35:
+            quality = "GOOD"
+        elif bin_ratio >= 0.50 and filtered_gini <= 0.60:
+            quality = "ACCEPTABLE"
+        else:
+            quality = "POOR"
+
         stats = {
             "initial_gini": initial_gini,
             "filtered_gini": filtered_gini,
@@ -121,7 +130,8 @@ class SpatialDistributionFilter:
             "filtered_count": len(filtered_src),
             "occupied_bins": len(bins),
             "total_bins": self.grid_size ** 2,
-            "bin_occupancy_ratio": float(len(bins) / (self.grid_size ** 2))
+            "bin_occupancy_ratio": bin_ratio,
+            "spatial_quality_status": quality
         }
 
         return filtered_src, filtered_ref, stats
