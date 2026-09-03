@@ -1,0 +1,94 @@
+{
+  "pair_name": "pair_09_dense_crater_highlands",
+  "suite_name": "suite_e_difficult_terrain",
+  "algorithm": "SIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 1.0,
+  "delta_sun_azimuth_deg": 60.0,
+  "metrics": {
+    "inlier_match_count": 4,
+    "candidate_matches_count": 16,
+    "inlier_ratio_percent": 25.0,
+    "rmse_inliers_px": 0.0,
+    "rmse_ground_truth_px": 588.9942016601562,
+    "mean_subpixel_residual_px": 0.0,
+    "subpixel_accuracy_rate_05px": 100.0,
+    "spatial_gini_coefficient": 0.84375,
+    "latency_ms": 512.6457214355469
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 131.05387592315674,
+        "original_std": 47.61559122002605,
+        "p_low": 33.0,
+        "p_high": 230.0,
+        "width": 1024,
+        "height": 1024
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 131.98216247558594,
+        "original_std": 47.793147703315796,
+        "p_low": 36.0,
+        "p_high": 226.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 208,
+      "reference_keypoints_count": 285,
+      "detection_time_ms": 329.91814613342285
+    },
+    "matching": {
+      "raw_matches": 19,
+      "filtered_matches": 16
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 4,
+      "outlier_count": 12,
+      "inlier_ratio_percent": 25.0,
+      "mean_rmse_px": 0.0
+    },
+    "spatial_distribution": {
+      "filter_applied": false
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 4,
+      "refined_points_count": 0,
+      "success_rate": 0.0,
+      "mean_subpixel_displacement": 0.0,
+      "max_subpixel_displacement": 0.0
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_e_difficult_terrain\\pair_09_dense_crater_highlands\\sift_baseline"
+}

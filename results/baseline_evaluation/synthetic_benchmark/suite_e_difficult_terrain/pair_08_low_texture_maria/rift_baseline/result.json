@@ -1,0 +1,100 @@
+{
+  "pair_name": "pair_08_low_texture_maria",
+  "suite_name": "suite_e_difficult_terrain",
+  "algorithm": "RIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 1.0,
+  "delta_sun_azimuth_deg": 30.0,
+  "metrics": {
+    "inlier_match_count": 399,
+    "candidate_matches_count": 596,
+    "inlier_ratio_percent": 66.94630872483222,
+    "rmse_inliers_px": 0.1567399948835373,
+    "rmse_ground_truth_px": 15.838933944702148,
+    "mean_subpixel_residual_px": 0.048494912683963776,
+    "subpixel_accuracy_rate_05px": 99.74937343358395,
+    "spatial_gini_coefficient": 0.002349624060150376,
+    "latency_ms": 9941.553592681885
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 153.0,
+        "original_max": 254.0,
+        "original_mean": 212.37123489379883,
+        "original_std": 4.308007831910017,
+        "p_low": 206.0,
+        "p_high": 219.0,
+        "width": 1024,
+        "height": 1024
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 127.0,
+        "original_max": 255.0,
+        "original_mean": 206.0312614440918,
+        "original_std": 5.083120031506837,
+        "p_low": 198.0,
+        "p_high": 214.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 1829,
+      "reference_keypoints_count": 1845,
+      "detection_time_ms": 9613.69514465332
+    },
+    "matching": {
+      "raw_matches": 607,
+      "filtered_matches": 596
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 583,
+      "outlier_count": 13,
+      "inlier_ratio_percent": 97.81879194630872,
+      "mean_rmse_px": 0.7674503326416016
+    },
+    "spatial_distribution": {
+      "initial_gini": 0.09616209262435678,
+      "filtered_gini": 0.002349624060150376,
+      "initial_count": 583,
+      "filtered_count": 399,
+      "occupied_bins": 16,
+      "total_bins": 16,
+      "bin_occupancy_ratio": 1.0
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 399,
+      "refined_points_count": 398,
+      "success_rate": 0.9974937343358395,
+      "mean_subpixel_displacement": 0.4888002872467041,
+      "max_subpixel_displacement": 2.7943954467773438
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_e_difficult_terrain\\pair_08_low_texture_maria\\rift_baseline"
+}

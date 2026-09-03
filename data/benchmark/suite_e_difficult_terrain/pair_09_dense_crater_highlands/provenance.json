@@ -1,0 +1,64 @@
+{
+  "pair_id": "SUITE_E_PAIR_09",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "challenge_description": "Dense overlapping crater cluster in lunar highland terrain",
+  "image_1": {
+    "provenance_schema_version": "1.1",
+    "timestamp_created_utc": "2026-09-01T06:31:10Z",
+    "data_category": "SYNTHETIC_BENCHMARK",
+    "is_synthetic": true,
+    "product_id": "SUITE_E_PAIR_09_SYNTH_IMG1",
+    "instrument_id": "CH2_OHRC",
+    "target_name": "Moon (Synthetic Simulation)",
+    "acquisition_time_utc": "2026-09-01T00:00:00Z",
+    "solar_geometry": {
+      "sun_azimuth_deg": 30.0,
+      "incidence_angle_deg": 65.0,
+      "emission_angle_deg": null,
+      "phase_angle_deg": null
+    },
+    "spatial_bounds": {
+      "min_lat": null,
+      "max_lat": null,
+      "min_lon": null,
+      "max_lon": null,
+      "gsd_m": 0.3
+    },
+    "projection": "Simple Cylindrical (Simulation Frame)",
+    "file_integrity": {
+      "image_filename": "image_1.png",
+      "image_path": "data/benchmark/suite_e_difficult_terrain/pair_09_dense_crater_highlands/image_1.png",
+      "sha256_checksum": "f777ebe6856434ffb85ee9b5ba1f3a7013f254ab102b689145bd7066b1a0fb1c",
+      "file_size_bytes": 398011,
+      "raw_label_path": "data/benchmark/suite_e_difficult_terrain/pair_09_dense_crater_highlands/ground_truth.json"
+    },
+    "source_provenance": {
+      "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+      "license_type": "Open Research Dataset",
+      "notes": "Synthetic Simulation of CH2_OHRC"
+    }
+  },
+  "image_2_simulated_sensor": "CH2_OHRC",
+  "image_2_gsd_m": 0.3,
+  "delta_sun_azimuth_deg": 60.0,
+  "scale_ratio": 1.0,
+  "cross_modal": false,
+  "ground_truth_homography": [
+    [
+      0.992546151641322,
+      0.12186934340514748,
+      -78.58073346379237
+    ],
+    [
+      -0.12186934340514748,
+      0.992546151641322,
+      81.21347418307866
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ]
+}

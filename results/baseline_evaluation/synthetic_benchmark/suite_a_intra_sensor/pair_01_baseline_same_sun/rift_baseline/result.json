@@ -1,0 +1,98 @@
+{
+  "pair_name": "pair_01_baseline_same_sun",
+  "suite_name": "suite_a_intra_sensor",
+  "algorithm": "RIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 1.0,
+  "delta_sun_azimuth_deg": 3.0,
+  "metrics": {
+    "inlier_match_count": 307,
+    "candidate_matches_count": 326,
+    "inlier_ratio_percent": 94.1717791411043,
+    "rmse_inliers_px": 0.18257318437099457,
+    "rmse_ground_truth_px": 33.45197296142578,
+    "mean_subpixel_residual_px": 0.06501050293445587,
+    "subpixel_accuracy_rate_05px": 99.6742671009772,
+    "spatial_gini_coefficient": 0.3153501628664495,
+    "latency_ms": 9916.37659072876
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 20.0,
+        "original_max": 255.0,
+        "original_mean": 198.15368556976318,
+        "original_std": 11.99278035805938,
+        "p_low": 164.0,
+        "p_high": 226.0,
+        "width": 1024,
+        "height": 1024
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 8.0,
+        "original_max": 255.0,
+        "original_mean": 198.17318725585938,
+        "original_std": 12.071802740128579,
+        "p_low": 163.0,
+        "p_high": 227.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 1802,
+      "reference_keypoints_count": 1827,
+      "detection_time_ms": 9630.088329315186
+    },
+    "matching": {
+      "raw_matches": 339,
+      "filtered_matches": 326
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 307,
+      "outlier_count": 19,
+      "inlier_ratio_percent": 94.1717791411043,
+      "mean_rmse_px": 0.873967170715332
+    },
+    "spatial_distribution": {
+      "initial_gini": 0.3153501628664495,
+      "filtered_gini": 0.3153501628664495,
+      "initial_count": 307,
+      "filtered_count": 307,
+      "occupied_bins": 15
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 307,
+      "refined_points_count": 306,
+      "success_rate": 0.996742671009772,
+      "mean_subpixel_displacement": 0.6204859614372253,
+      "max_subpixel_displacement": 2.3577041625976562
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_a_intra_sensor\\pair_01_baseline_same_sun\\rift_baseline"
+}

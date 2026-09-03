@@ -1,0 +1,98 @@
+{
+  "pair_name": "pair_07_cross_modal_swir_pan",
+  "suite_name": "suite_d_cross_modal",
+  "algorithm": "RIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 1.0,
+  "delta_sun_azimuth_deg": 5.0,
+  "metrics": {
+    "inlier_match_count": 124,
+    "candidate_matches_count": 145,
+    "inlier_ratio_percent": 85.51724137931035,
+    "rmse_inliers_px": 1.392534852027893,
+    "rmse_ground_truth_px": 27.790739059448242,
+    "mean_subpixel_residual_px": 1.0471874475479126,
+    "subpixel_accuracy_rate_05px": 31.451612903225808,
+    "spatial_gini_coefficient": 0.41935483870967744,
+    "latency_ms": 10509.858846664429
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 188.2468614578247,
+        "original_std": 23.977823664586175,
+        "p_low": 115.0,
+        "p_high": 241.0,
+        "width": 1024,
+        "height": 1024
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 30.998791694641113,
+        "original_std": 19.316544772007624,
+        "p_low": 3.0,
+        "p_high": 99.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 1852,
+      "reference_keypoints_count": 1883,
+      "detection_time_ms": 10239.638805389404
+    },
+    "matching": {
+      "raw_matches": 158,
+      "filtered_matches": 145
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 124,
+      "outlier_count": 21,
+      "inlier_ratio_percent": 85.51724137931035,
+      "mean_rmse_px": 0.9754035472869873
+    },
+    "spatial_distribution": {
+      "initial_gini": 0.41935483870967744,
+      "filtered_gini": 0.41935483870967744,
+      "initial_count": 124,
+      "filtered_count": 124,
+      "occupied_bins": 13
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 124,
+      "refined_points_count": 15,
+      "success_rate": 0.12096774193548387,
+      "mean_subpixel_displacement": 0.2857024669647217,
+      "max_subpixel_displacement": 3.0745296478271484
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_d_cross_modal\\pair_07_cross_modal_swir_pan\\rift_baseline"
+}

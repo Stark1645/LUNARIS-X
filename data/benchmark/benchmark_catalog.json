@@ -1,0 +1,594 @@
+{
+  "benchmark_name": "Ch-2-MatchBench-Synthetic",
+  "version": "1.1",
+  "is_synthetic": true,
+  "description": "Controlled synthetic lunar correspondence benchmark with analytical ground truth for SIH26166.",
+  "suites": {
+    "suite_a": [
+      {
+        "pair_id": "SUITE_A_PAIR_01",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Baseline verification under nearly identical illumination",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:07Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_A_PAIR_01_SYNTH_IMG1",
+          "instrument_id": "CH2_TMC2",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 45.0,
+            "incidence_angle_deg": 40.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 5.0
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_a_intra_sensor/pair_01_baseline_same_sun/image_1.png",
+            "sha256_checksum": "edbcacb2059074de7fa274056a7376b5b74463d416066a069ba0230c7b77c439",
+            "file_size_bytes": 336241,
+            "raw_label_path": "data/benchmark/suite_a_intra_sensor/pair_01_baseline_same_sun/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_TMC2"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_TMC2",
+        "image_2_gsd_m": 5.0,
+        "delta_sun_azimuth_deg": 3.0,
+        "scale_ratio": 1.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            0.9961946980917455,
+            0.08715574274765817,
+            -27.6754257097747
+          ],
+          [
+            -0.08715574274765817,
+            0.9961946980917455,
+            36.57205486382726
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "suite_b": [
+      {
+        "pair_id": "SUITE_B_PAIR_02",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Orthogonal solar illumination (90\u00b0 azimuth shift)",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:07Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_B_PAIR_02_SYNTH_IMG1",
+          "instrument_id": "CH2_OHRC",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 45.0,
+            "incidence_angle_deg": 60.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 0.3
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_b_sun_angle/pair_02_sun_angle_90deg/image_1.png",
+            "sha256_checksum": "a79aab015437ebbd6af6346059739abf1c22c4df8e9e3e875d678f33a4c8ea4a",
+            "file_size_bytes": 364774,
+            "raw_label_path": "data/benchmark/suite_b_sun_angle/pair_02_sun_angle_90deg/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_OHRC"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_OHRC",
+        "image_2_gsd_m": 0.3,
+        "delta_sun_azimuth_deg": 90.0,
+        "scale_ratio": 1.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            0.9902680687415704,
+            0.13917310096006544,
+            -46.27387888723753
+          ],
+          [
+            -0.13917310096006544,
+            0.9902680687415704,
+            86.23937649586948
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "pair_id": "SUITE_B_PAIR_03",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Complete shadow reversal under 180\u00b0 opposing solar azimuths",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:08Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_B_PAIR_03_SYNTH_IMG1",
+          "instrument_id": "CH2_OHRC",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 30.0,
+            "incidence_angle_deg": 65.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 0.3
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_b_sun_angle/pair_03_sun_angle_180deg/image_1.png",
+            "sha256_checksum": "bdd341cc6c949aa33ca7153f3667e9001fba11def83b815c6764a420a149653d",
+            "file_size_bytes": 374222,
+            "raw_label_path": "data/benchmark/suite_b_sun_angle/pair_03_sun_angle_180deg/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_OHRC"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_OHRC",
+        "image_2_gsd_m": 0.3,
+        "delta_sun_azimuth_deg": 180.0,
+        "scale_ratio": 1.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            0.9975640502598242,
+            -0.0697564737441253,
+            21.962520823962166
+          ],
+          [
+            0.0697564737441253,
+            0.9975640502598242,
+            -9.468108290022144
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "suite_c": [
+      {
+        "pair_id": "SUITE_C_PAIR_04",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Moderate 4x scale gap",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:08Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_C_PAIR_04_SYNTH_IMG1",
+          "instrument_id": "CH2_TMC2",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 60.0,
+            "incidence_angle_deg": 45.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 1.2
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_c_scale_disparity/pair_04_scale_4x/image_1.png",
+            "sha256_checksum": "27f58972126fdd64b885dddf016bedffce7a9c48b268241a5ce409ab002f76b5",
+            "file_size_bytes": 29222,
+            "raw_label_path": "data/benchmark/suite_c_scale_disparity/pair_04_scale_4x/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_TMC2"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_OHRC",
+        "image_2_gsd_m": 0.3,
+        "delta_sun_azimuth_deg": 5.0,
+        "scale_ratio": 4.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            4.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            4.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "pair_id": "SUITE_C_PAIR_05",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Severe 16x cross-scale disparity (TMC-2 to OHRC)",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:08Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_C_PAIR_05_SYNTH_IMG1",
+          "instrument_id": "CH2_TMC2",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 60.0,
+            "incidence_angle_deg": 50.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 5.0
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_c_scale_disparity/pair_05_scale_16x_tmc2_ohrc/image_1.png",
+            "sha256_checksum": "d19b1d35589826763f1a10dbd9e79bf3144b7d768ffd70a11989859b7507c106",
+            "file_size_bytes": 2768,
+            "raw_label_path": "data/benchmark/suite_c_scale_disparity/pair_05_scale_16x_tmc2_ohrc/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_TMC2"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_OHRC",
+        "image_2_gsd_m": 0.31,
+        "delta_sun_azimuth_deg": 15.0,
+        "scale_ratio": 16.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            15.990253232305532,
+            0.5583919472400155,
+            -17.556645745457526
+          ],
+          [
+            -0.5583919472400155,
+            15.990253232305532,
+            18.180438877903466
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "pair_id": "SUITE_C_PAIR_06",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Extreme 20x cross-scale disparity (TMC-2 5m to OHRC 0.25m)",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:09Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_C_PAIR_06_SYNTH_IMG1",
+          "instrument_id": "CH2_TMC2",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 45.0,
+            "incidence_angle_deg": 55.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 5.0
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_c_scale_disparity/pair_06_scale_20x_tmc2_ohrc/image_1.png",
+            "sha256_checksum": "ed7c3fa731c6f7f2bb07e9ba9ec7ebc30037c9c4ae0985479446c7e7197beacd",
+            "file_size_bytes": 2039,
+            "raw_label_path": "data/benchmark/suite_c_scale_disparity/pair_06_scale_20x_tmc2_ohrc/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_TMC2"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_OHRC",
+        "image_2_gsd_m": 0.25,
+        "delta_sun_azimuth_deg": 20.0,
+        "scale_ratio": 20.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            19.972590695091476,
+            -1.0467191248588767,
+            27.49768780204544
+          ],
+          [
+            1.0467191248588767,
+            19.972590695091476,
+            -26.094331390729046
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "suite_d": [
+      {
+        "pair_id": "SUITE_D_PAIR_07",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Cross-modal non-linear spectral absorption (IIRS SWIR vs Panchromatic)",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:09Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_D_PAIR_07_SYNTH_IMG1",
+          "instrument_id": "CH2_IIRS",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 50.0,
+            "incidence_angle_deg": 45.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 80.0
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_d_cross_modal/pair_07_cross_modal_swir_pan/image_1.png",
+            "sha256_checksum": "89af912c4024e402a5b03945918cd4357d60c944ae6bd715733ebf2372682915",
+            "file_size_bytes": 336867,
+            "raw_label_path": "data/benchmark/suite_d_cross_modal/pair_07_cross_modal_swir_pan/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_IIRS"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_TMC2",
+        "image_2_gsd_m": 5.0,
+        "delta_sun_azimuth_deg": 5.0,
+        "scale_ratio": 1.0,
+        "cross_modal": true,
+        "ground_truth_homography": [
+          [
+            0.9975640502598242,
+            0.0697564737441253,
+            -24.468108290022144
+          ],
+          [
+            -0.0697564737441253,
+            0.9975640502598242,
+            26.962520823962166
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "suite_e": [
+      {
+        "pair_id": "SUITE_E_PAIR_08",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Low-texture feature-sparse lunar maria plain",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:09Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_E_PAIR_08_SYNTH_IMG1",
+          "instrument_id": "CH2_TMC2",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 45.0,
+            "incidence_angle_deg": 30.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 5.0
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_e_difficult_terrain/pair_08_low_texture_maria/image_1.png",
+            "sha256_checksum": "fb1578d7b028fb2a99681ba47c8663a8c948b39fd0d6b2cd98259f77bce8327b",
+            "file_size_bytes": 310822,
+            "raw_label_path": "data/benchmark/suite_e_difficult_terrain/pair_08_low_texture_maria/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_TMC2"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_TMC2",
+        "image_2_gsd_m": 5.0,
+        "delta_sun_azimuth_deg": 30.0,
+        "scale_ratio": 1.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            0.9993908270190958,
+            -0.03489949670250097,
+            23.180438877903466
+          ],
+          [
+            0.03489949670250097,
+            0.9993908270190958,
+            -12.556645745457526
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "pair_id": "SUITE_E_PAIR_09",
+        "data_category": "SYNTHETIC_BENCHMARK",
+        "is_synthetic": true,
+        "challenge_description": "Dense overlapping crater cluster in lunar highland terrain",
+        "image_1": {
+          "provenance_schema_version": "1.1",
+          "timestamp_created_utc": "2026-09-01T06:31:10Z",
+          "data_category": "SYNTHETIC_BENCHMARK",
+          "is_synthetic": true,
+          "product_id": "SUITE_E_PAIR_09_SYNTH_IMG1",
+          "instrument_id": "CH2_OHRC",
+          "target_name": "Moon (Synthetic Simulation)",
+          "acquisition_time_utc": "2026-09-01T00:00:00Z",
+          "solar_geometry": {
+            "sun_azimuth_deg": 30.0,
+            "incidence_angle_deg": 65.0,
+            "emission_angle_deg": null,
+            "phase_angle_deg": null
+          },
+          "spatial_bounds": {
+            "min_lat": null,
+            "max_lat": null,
+            "min_lon": null,
+            "max_lon": null,
+            "gsd_m": 0.3
+          },
+          "projection": "Simple Cylindrical (Simulation Frame)",
+          "file_integrity": {
+            "image_filename": "image_1.png",
+            "image_path": "data/benchmark/suite_e_difficult_terrain/pair_09_dense_crater_highlands/image_1.png",
+            "sha256_checksum": "f777ebe6856434ffb85ee9b5ba1f3a7013f254ab102b689145bd7066b1a0fb1c",
+            "file_size_bytes": 398011,
+            "raw_label_path": "data/benchmark/suite_e_difficult_terrain/pair_09_dense_crater_highlands/ground_truth.json"
+          },
+          "source_provenance": {
+            "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+            "license_type": "Open Research Dataset",
+            "notes": "Synthetic Simulation of CH2_OHRC"
+          }
+        },
+        "image_2_simulated_sensor": "CH2_OHRC",
+        "image_2_gsd_m": 0.3,
+        "delta_sun_azimuth_deg": 60.0,
+        "scale_ratio": 1.0,
+        "cross_modal": false,
+        "ground_truth_homography": [
+          [
+            0.992546151641322,
+            0.12186934340514748,
+            -78.58073346379237
+          ],
+          [
+            -0.12186934340514748,
+            0.992546151641322,
+            81.21347418307866
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ]
+  }
+}

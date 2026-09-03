@@ -1,0 +1,1212 @@
+{
+  "timestamp_utc": "2026-09-02T14:13:16Z",
+  "total_pairs": 9,
+  "configurations": [
+    "SIFT_Baseline",
+    "RIFT_Baseline",
+    "Proposed_Full",
+    "Ablation_No_Scale_Pyramid",
+    "Ablation_No_Shadow_Suppression",
+    "Ablation_No_Dynamic_Model",
+    "Ablation_No_Subpixel"
+  ],
+  "records": [
+    {
+      "suite_name": "suite_a_intra_sensor",
+      "pair_name": "pair_01_baseline_same_sun",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 3.0,
+      "metrics": {
+        "inlier_match_count": 59,
+        "candidate_matches_count": 88,
+        "inlier_ratio_percent": 67.04545454545455,
+        "rmse_inliers_px": 1.4712514877319336,
+        "rmse_ground_truth_px": 0.6802306771278381,
+        "mean_subpixel_residual_px": 1.1979320049285889,
+        "spatial_gini": 0.4141949152542373,
+        "latency_ms": 578.2530307769775
+      }
+    },
+    {
+      "suite_name": "suite_a_intra_sensor",
+      "pair_name": "pair_01_baseline_same_sun",
+      "config_name": "RIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 3.0,
+      "metrics": {
+        "inlier_match_count": 307,
+        "candidate_matches_count": 326,
+        "inlier_ratio_percent": 94.1717791411043,
+        "rmse_inliers_px": 0.18257318437099457,
+        "rmse_ground_truth_px": 33.45197296142578,
+        "mean_subpixel_residual_px": 0.06501050293445587,
+        "spatial_gini": 0.3153501628664495,
+        "latency_ms": 9860.160827636719
+      }
+    },
+    {
+      "suite_name": "suite_a_intra_sensor",
+      "pair_name": "pair_01_baseline_same_sun",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 3.0,
+      "metrics": {
+        "inlier_match_count": 382,
+        "candidate_matches_count": 427,
+        "inlier_ratio_percent": 89.46135831381733,
+        "rmse_inliers_px": 0.22613655030727386,
+        "rmse_ground_truth_px": 33.64710235595703,
+        "mean_subpixel_residual_px": 0.07351916283369064,
+        "spatial_gini": 0.3226439790575916,
+        "latency_ms": 10102.87094116211
+      }
+    },
+    {
+      "suite_name": "suite_a_intra_sensor",
+      "pair_name": "pair_01_baseline_same_sun",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 3.0,
+      "metrics": {
+        "inlier_match_count": 382,
+        "candidate_matches_count": 427,
+        "inlier_ratio_percent": 89.46135831381733,
+        "rmse_inliers_px": 0.22613655030727386,
+        "rmse_ground_truth_px": 33.64710235595703,
+        "mean_subpixel_residual_px": 0.07351916283369064,
+        "spatial_gini": 0.3226439790575916,
+        "latency_ms": 9896.029710769653
+      }
+    },
+    {
+      "suite_name": "suite_a_intra_sensor",
+      "pair_name": "pair_01_baseline_same_sun",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 3.0,
+      "metrics": {
+        "inlier_match_count": 309,
+        "candidate_matches_count": 430,
+        "inlier_ratio_percent": 71.86046511627907,
+        "rmse_inliers_px": 0.24883410334587097,
+        "rmse_ground_truth_px": 35.96200180053711,
+        "mean_subpixel_residual_px": 0.07807248830795288,
+        "spatial_gini": 0.2020631067961165,
+        "latency_ms": 9761.377334594727
+      }
+    },
+    {
+      "suite_name": "suite_a_intra_sensor",
+      "pair_name": "pair_01_baseline_same_sun",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 3.0,
+      "metrics": {
+        "inlier_match_count": 382,
+        "candidate_matches_count": 427,
+        "inlier_ratio_percent": 89.46135831381733,
+        "rmse_inliers_px": 0.22613655030727386,
+        "rmse_ground_truth_px": 33.64710235595703,
+        "mean_subpixel_residual_px": 0.07351916283369064,
+        "spatial_gini": 0.3226439790575916,
+        "latency_ms": 9808.539152145386
+      }
+    },
+    {
+      "suite_name": "suite_a_intra_sensor",
+      "pair_name": "pair_01_baseline_same_sun",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 3.0,
+      "metrics": {
+        "inlier_match_count": 382,
+        "candidate_matches_count": 427,
+        "inlier_ratio_percent": 89.46135831381733,
+        "rmse_inliers_px": 0.9019213318824768,
+        "rmse_ground_truth_px": 33.70939254760742,
+        "mean_subpixel_residual_px": 0.6645843386650085,
+        "spatial_gini": 0.3226439790575916,
+        "latency_ms": 9647.610425949097
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_02_sun_angle_90deg",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 90.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 11,
+        "inlier_ratio_percent": 36.36363636363637,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 461.9768981933594,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.75,
+        "latency_ms": 383.35704803466797
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_02_sun_angle_90deg",
+      "config_name": "RIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 90.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 4,
+        "inlier_ratio_percent": 100.0,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 609.115966796875,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.84375,
+        "latency_ms": 9274.365901947021
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_02_sun_angle_90deg",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 90.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 8,
+        "inlier_ratio_percent": 50.0,
+        "rmse_inliers_px": 229.58348083496094,
+        "rmse_ground_truth_px": 496.6208801269531,
+        "mean_subpixel_residual_px": 114.79174041748047,
+        "spatial_gini": 0.75,
+        "latency_ms": 9745.522737503052
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_02_sun_angle_90deg",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 90.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 8,
+        "inlier_ratio_percent": 50.0,
+        "rmse_inliers_px": 229.58348083496094,
+        "rmse_ground_truth_px": 496.6208801269531,
+        "mean_subpixel_residual_px": 114.79174041748047,
+        "spatial_gini": 0.75,
+        "latency_ms": 9803.184747695923
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_02_sun_angle_90deg",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 90.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 7,
+        "inlier_ratio_percent": 57.14285714285714,
+        "rmse_inliers_px": 112.10684204101562,
+        "rmse_ground_truth_px": 406.4474792480469,
+        "mean_subpixel_residual_px": 56.05342102050781,
+        "spatial_gini": 0.75,
+        "latency_ms": 10113.584995269775
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_02_sun_angle_90deg",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 90.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 8,
+        "inlier_ratio_percent": 50.0,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 436.50048828125,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.75,
+        "latency_ms": 10437.114000320435
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_02_sun_angle_90deg",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 90.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 8,
+        "inlier_ratio_percent": 50.0,
+        "rmse_inliers_px": 229.58348083496094,
+        "rmse_ground_truth_px": 496.6208801269531,
+        "mean_subpixel_residual_px": 114.79174041748047,
+        "spatial_gini": 0.75,
+        "latency_ms": 9880.54609298706
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_03_sun_angle_180deg",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 180.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 15,
+        "inlier_ratio_percent": 26.666666666666668,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 347.0850524902344,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.75,
+        "latency_ms": 422.8060245513916
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_03_sun_angle_180deg",
+      "config_name": "RIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 180.0,
+      "metrics": {
+        "inlier_match_count": 12,
+        "candidate_matches_count": 29,
+        "inlier_ratio_percent": 41.37931034482759,
+        "rmse_inliers_px": 1.5051085948944092,
+        "rmse_ground_truth_px": 4.870118618011475,
+        "mean_subpixel_residual_px": 1.326745629310608,
+        "spatial_gini": 0.6145833333333334,
+        "latency_ms": 9192.752361297607
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_03_sun_angle_180deg",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 180.0,
+      "metrics": {
+        "inlier_match_count": 12,
+        "candidate_matches_count": 36,
+        "inlier_ratio_percent": 33.33333333333333,
+        "rmse_inliers_px": 1.770781397819519,
+        "rmse_ground_truth_px": 5.41619348526001,
+        "mean_subpixel_residual_px": 1.6546454429626465,
+        "spatial_gini": 0.6145833333333334,
+        "latency_ms": 9727.529048919678
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_03_sun_angle_180deg",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 180.0,
+      "metrics": {
+        "inlier_match_count": 12,
+        "candidate_matches_count": 36,
+        "inlier_ratio_percent": 33.33333333333333,
+        "rmse_inliers_px": 1.770781397819519,
+        "rmse_ground_truth_px": 5.41619348526001,
+        "mean_subpixel_residual_px": 1.6546454429626465,
+        "spatial_gini": 0.6145833333333334,
+        "latency_ms": 9646.544933319092
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_03_sun_angle_180deg",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 180.0,
+      "metrics": {
+        "inlier_match_count": 10,
+        "candidate_matches_count": 33,
+        "inlier_ratio_percent": 30.303030303030305,
+        "rmse_inliers_px": 6.670865535736084,
+        "rmse_ground_truth_px": 8.76272201538086,
+        "mean_subpixel_residual_px": 3.629751682281494,
+        "spatial_gini": 0.7125,
+        "latency_ms": 9556.909561157227
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_03_sun_angle_180deg",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 180.0,
+      "metrics": {
+        "inlier_match_count": 12,
+        "candidate_matches_count": 36,
+        "inlier_ratio_percent": 33.33333333333333,
+        "rmse_inliers_px": 1.770781397819519,
+        "rmse_ground_truth_px": 5.41619348526001,
+        "mean_subpixel_residual_px": 1.6546454429626465,
+        "spatial_gini": 0.6145833333333334,
+        "latency_ms": 9605.383396148682
+      }
+    },
+    {
+      "suite_name": "suite_b_sun_angle",
+      "pair_name": "pair_03_sun_angle_180deg",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 180.0,
+      "metrics": {
+        "inlier_match_count": 12,
+        "candidate_matches_count": 36,
+        "inlier_ratio_percent": 33.33333333333333,
+        "rmse_inliers_px": 1.598363995552063,
+        "rmse_ground_truth_px": 5.183916091918945,
+        "mean_subpixel_residual_px": 1.4764727354049683,
+        "spatial_gini": 0.6145833333333334,
+        "latency_ms": 10015.22946357727
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_04_scale_4x",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 4.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 67,
+        "candidate_matches_count": 72,
+        "inlier_ratio_percent": 93.05555555555556,
+        "rmse_inliers_px": 1.3081777095794678,
+        "rmse_ground_truth_px": 1.2555279731750488,
+        "mean_subpixel_residual_px": 1.084612250328064,
+        "spatial_gini": 0.9375,
+        "latency_ms": 229.00700569152832
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_04_scale_4x",
+      "config_name": "RIFT_Baseline",
+      "status": "FAILED",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 4.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 0,
+        "candidate_matches_count": 5,
+        "inlier_ratio_percent": 0.0,
+        "rmse_inliers_px": null,
+        "rmse_ground_truth_px": null,
+        "mean_subpixel_residual_px": null,
+        "spatial_gini": 1.0,
+        "latency_ms": 5369.4751262664795
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_04_scale_4x",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 4.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 87,
+        "candidate_matches_count": 95,
+        "inlier_ratio_percent": 91.57894736842105,
+        "rmse_inliers_px": 1.2715235948562622,
+        "rmse_ground_truth_px": 0.41448596119880676,
+        "mean_subpixel_residual_px": 1.084510326385498,
+        "spatial_gini": 0.9375,
+        "latency_ms": 121.99187278747559
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_04_scale_4x",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 4.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 5,
+        "candidate_matches_count": 10,
+        "inlier_ratio_percent": 50.0,
+        "rmse_inliers_px": 170.67433166503906,
+        "rmse_ground_truth_px": 426.1281433105469,
+        "mean_subpixel_residual_px": 77.40394592285156,
+        "spatial_gini": 0.9375,
+        "latency_ms": 5945.040225982666
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_04_scale_4x",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 4.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 87,
+        "candidate_matches_count": 95,
+        "inlier_ratio_percent": 91.57894736842105,
+        "rmse_inliers_px": 1.2715235948562622,
+        "rmse_ground_truth_px": 0.41448596119880676,
+        "mean_subpixel_residual_px": 1.084510326385498,
+        "spatial_gini": 0.9375,
+        "latency_ms": 119.08388137817383
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_04_scale_4x",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 4.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 87,
+        "candidate_matches_count": 95,
+        "inlier_ratio_percent": 91.57894736842105,
+        "rmse_inliers_px": 1.2715235948562622,
+        "rmse_ground_truth_px": 0.41448596119880676,
+        "mean_subpixel_residual_px": 1.084510326385498,
+        "spatial_gini": 0.9375,
+        "latency_ms": 113.30389976501465
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_04_scale_4x",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 4.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 87,
+        "candidate_matches_count": 95,
+        "inlier_ratio_percent": 91.57894736842105,
+        "rmse_inliers_px": 1.125308632850647,
+        "rmse_ground_truth_px": 0.24506719410419464,
+        "mean_subpixel_residual_px": 0.9589883089065552,
+        "spatial_gini": 0.9375,
+        "latency_ms": 129.50873374938965
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 16.0,
+      "delta_sun_azimuth_deg": 15.0,
+      "metrics": {
+        "inlier_match_count": 5,
+        "candidate_matches_count": 8,
+        "inlier_ratio_percent": 62.5,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 6.794392108917236,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.9375,
+        "latency_ms": 211.37380599975586
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+      "config_name": "RIFT_Baseline",
+      "status": "FAILED",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 16.0,
+      "delta_sun_azimuth_deg": 15.0,
+      "metrics": {
+        "inlier_match_count": 0,
+        "candidate_matches_count": 0,
+        "inlier_ratio_percent": 0.0,
+        "rmse_inliers_px": null,
+        "rmse_ground_truth_px": null,
+        "mean_subpixel_residual_px": null,
+        "spatial_gini": 1.0,
+        "latency_ms": 5015.671253204346
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 16.0,
+      "delta_sun_azimuth_deg": 15.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 15,
+        "inlier_ratio_percent": 46.666666666666664,
+        "rmse_inliers_px": 7.251953125,
+        "rmse_ground_truth_px": 7.239553451538086,
+        "mean_subpixel_residual_px": 4.3125810623168945,
+        "spatial_gini": 0.9375,
+        "latency_ms": 100.74782371520996
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "FAILED",
+      "transformation_model": "NONE",
+      "scale_ratio": 16.0,
+      "delta_sun_azimuth_deg": 15.0,
+      "metrics": {
+        "inlier_match_count": 0,
+        "candidate_matches_count": 0,
+        "inlier_ratio_percent": 0.0,
+        "rmse_inliers_px": null,
+        "rmse_ground_truth_px": null,
+        "mean_subpixel_residual_px": null,
+        "spatial_gini": 1.0,
+        "latency_ms": 5184.417724609375
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 16.0,
+      "delta_sun_azimuth_deg": 15.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 15,
+        "inlier_ratio_percent": 46.666666666666664,
+        "rmse_inliers_px": 7.251953125,
+        "rmse_ground_truth_px": 7.239553451538086,
+        "mean_subpixel_residual_px": 4.3125810623168945,
+        "spatial_gini": 0.9375,
+        "latency_ms": 80.56831359863281
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 16.0,
+      "delta_sun_azimuth_deg": 15.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 15,
+        "inlier_ratio_percent": 46.666666666666664,
+        "rmse_inliers_px": 1.4189633131027222,
+        "rmse_ground_truth_px": 7.337432384490967,
+        "mean_subpixel_residual_px": 1.1722553968429565,
+        "spatial_gini": 0.9375,
+        "latency_ms": 70.21927833557129
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 16.0,
+      "delta_sun_azimuth_deg": 15.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 15,
+        "inlier_ratio_percent": 46.666666666666664,
+        "rmse_inliers_px": 6.279209613800049,
+        "rmse_ground_truth_px": 6.307474136352539,
+        "mean_subpixel_residual_px": 3.7487239837646484,
+        "spatial_gini": 0.9375,
+        "latency_ms": 157.64117240905762
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_06_scale_20x_tmc2_ohrc",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 20.0,
+      "delta_sun_azimuth_deg": 20.0,
+      "metrics": {
+        "inlier_match_count": 5,
+        "candidate_matches_count": 10,
+        "inlier_ratio_percent": 50.0,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 10.001974105834961,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.9375,
+        "latency_ms": 271.1219787597656
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_06_scale_20x_tmc2_ohrc",
+      "config_name": "RIFT_Baseline",
+      "status": "FAILED",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 20.0,
+      "delta_sun_azimuth_deg": 20.0,
+      "metrics": {
+        "inlier_match_count": 0,
+        "candidate_matches_count": 0,
+        "inlier_ratio_percent": 0.0,
+        "rmse_inliers_px": null,
+        "rmse_ground_truth_px": null,
+        "mean_subpixel_residual_px": null,
+        "spatial_gini": 1.0,
+        "latency_ms": 4858.8292598724365
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_06_scale_20x_tmc2_ohrc",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 20.0,
+      "delta_sun_azimuth_deg": 20.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 13,
+        "inlier_ratio_percent": 53.84615384615385,
+        "rmse_inliers_px": 1.0461169481277466,
+        "rmse_ground_truth_px": 9.452211380004883,
+        "mean_subpixel_residual_px": 0.9615511894226074,
+        "spatial_gini": 0.9375,
+        "latency_ms": 95.16310691833496
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_06_scale_20x_tmc2_ohrc",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "FAILED",
+      "transformation_model": "NONE",
+      "scale_ratio": 20.0,
+      "delta_sun_azimuth_deg": 20.0,
+      "metrics": {
+        "inlier_match_count": 0,
+        "candidate_matches_count": 0,
+        "inlier_ratio_percent": 0.0,
+        "rmse_inliers_px": null,
+        "rmse_ground_truth_px": null,
+        "mean_subpixel_residual_px": null,
+        "spatial_gini": 1.0,
+        "latency_ms": 4893.118619918823
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_06_scale_20x_tmc2_ohrc",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 20.0,
+      "delta_sun_azimuth_deg": 20.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 13,
+        "inlier_ratio_percent": 53.84615384615385,
+        "rmse_inliers_px": 1.0461169481277466,
+        "rmse_ground_truth_px": 9.452211380004883,
+        "mean_subpixel_residual_px": 0.9615511894226074,
+        "spatial_gini": 0.9375,
+        "latency_ms": 70.3115463256836
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_06_scale_20x_tmc2_ohrc",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 20.0,
+      "delta_sun_azimuth_deg": 20.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 13,
+        "inlier_ratio_percent": 53.84615384615385,
+        "rmse_inliers_px": 0.4009205400943756,
+        "rmse_ground_truth_px": 9.501465797424316,
+        "mean_subpixel_residual_px": 0.2939208149909973,
+        "spatial_gini": 0.9375,
+        "latency_ms": 67.73829460144043
+      }
+    },
+    {
+      "suite_name": "suite_c_scale_disparity",
+      "pair_name": "pair_06_scale_20x_tmc2_ohrc",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 20.0,
+      "delta_sun_azimuth_deg": 20.0,
+      "metrics": {
+        "inlier_match_count": 7,
+        "candidate_matches_count": 13,
+        "inlier_ratio_percent": 53.84615384615385,
+        "rmse_inliers_px": 1.0461169481277466,
+        "rmse_ground_truth_px": 9.452211380004883,
+        "mean_subpixel_residual_px": 0.9615511894226074,
+        "spatial_gini": 0.9375,
+        "latency_ms": 67.40331649780273
+      }
+    },
+    {
+      "suite_name": "suite_d_cross_modal",
+      "pair_name": "pair_07_cross_modal_swir_pan",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 9,
+        "inlier_ratio_percent": 44.44444444444444,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 519.15478515625,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.90625,
+        "latency_ms": 366.6393756866455
+      }
+    },
+    {
+      "suite_name": "suite_d_cross_modal",
+      "pair_name": "pair_07_cross_modal_swir_pan",
+      "config_name": "RIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 124,
+        "candidate_matches_count": 145,
+        "inlier_ratio_percent": 85.51724137931035,
+        "rmse_inliers_px": 1.392534852027893,
+        "rmse_ground_truth_px": 27.790739059448242,
+        "mean_subpixel_residual_px": 1.0471874475479126,
+        "spatial_gini": 0.41935483870967744,
+        "latency_ms": 10188.35186958313
+      }
+    },
+    {
+      "suite_name": "suite_d_cross_modal",
+      "pair_name": "pair_07_cross_modal_swir_pan",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 166,
+        "candidate_matches_count": 194,
+        "inlier_ratio_percent": 85.56701030927834,
+        "rmse_inliers_px": 1.563184380531311,
+        "rmse_ground_truth_px": 27.756580352783203,
+        "mean_subpixel_residual_px": 1.2238473892211914,
+        "spatial_gini": 0.4314759036144578,
+        "latency_ms": 9741.800308227539
+      }
+    },
+    {
+      "suite_name": "suite_d_cross_modal",
+      "pair_name": "pair_07_cross_modal_swir_pan",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 166,
+        "candidate_matches_count": 194,
+        "inlier_ratio_percent": 85.56701030927834,
+        "rmse_inliers_px": 1.563184380531311,
+        "rmse_ground_truth_px": 27.756580352783203,
+        "mean_subpixel_residual_px": 1.2238473892211914,
+        "spatial_gini": 0.4314759036144578,
+        "latency_ms": 11097.078561782837
+      }
+    },
+    {
+      "suite_name": "suite_d_cross_modal",
+      "pair_name": "pair_07_cross_modal_swir_pan",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 172,
+        "candidate_matches_count": 201,
+        "inlier_ratio_percent": 85.57213930348259,
+        "rmse_inliers_px": 1.5453599691390991,
+        "rmse_ground_truth_px": 27.608592987060547,
+        "mean_subpixel_residual_px": 1.208500623703003,
+        "spatial_gini": 0.42877906976744184,
+        "latency_ms": 10866.609811782837
+      }
+    },
+    {
+      "suite_name": "suite_d_cross_modal",
+      "pair_name": "pair_07_cross_modal_swir_pan",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 166,
+        "candidate_matches_count": 194,
+        "inlier_ratio_percent": 85.56701030927834,
+        "rmse_inliers_px": 1.563184380531311,
+        "rmse_ground_truth_px": 27.756580352783203,
+        "mean_subpixel_residual_px": 1.2238473892211914,
+        "spatial_gini": 0.4314759036144578,
+        "latency_ms": 10717.020750045776
+      }
+    },
+    {
+      "suite_name": "suite_d_cross_modal",
+      "pair_name": "pair_07_cross_modal_swir_pan",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 5.0,
+      "metrics": {
+        "inlier_match_count": 166,
+        "candidate_matches_count": 194,
+        "inlier_ratio_percent": 85.56701030927834,
+        "rmse_inliers_px": 1.0236406326293945,
+        "rmse_ground_truth_px": 27.734323501586914,
+        "mean_subpixel_residual_px": 0.8480038642883301,
+        "spatial_gini": 0.4314759036144578,
+        "latency_ms": 10207.6997756958
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_08_low_texture_maria",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 30.0,
+      "metrics": {
+        "inlier_match_count": 400,
+        "candidate_matches_count": 795,
+        "inlier_ratio_percent": 50.314465408805034,
+        "rmse_inliers_px": 0.45398208498954773,
+        "rmse_ground_truth_px": 16.10316276550293,
+        "mean_subpixel_residual_px": 0.3920177221298218,
+        "spatial_gini": 0.0,
+        "latency_ms": 586.7493152618408
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_08_low_texture_maria",
+      "config_name": "RIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 30.0,
+      "metrics": {
+        "inlier_match_count": 399,
+        "candidate_matches_count": 596,
+        "inlier_ratio_percent": 66.94630872483222,
+        "rmse_inliers_px": 0.1567399948835373,
+        "rmse_ground_truth_px": 15.838933944702148,
+        "mean_subpixel_residual_px": 0.048494912683963776,
+        "spatial_gini": 0.002349624060150376,
+        "latency_ms": 10119.024991989136
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_08_low_texture_maria",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 30.0,
+      "metrics": {
+        "inlier_match_count": 400,
+        "candidate_matches_count": 672,
+        "inlier_ratio_percent": 59.523809523809526,
+        "rmse_inliers_px": 0.215361550450325,
+        "rmse_ground_truth_px": 15.754487991333008,
+        "mean_subpixel_residual_px": 0.059531763195991516,
+        "spatial_gini": 0.0,
+        "latency_ms": 10609.669923782349
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_08_low_texture_maria",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 30.0,
+      "metrics": {
+        "inlier_match_count": 400,
+        "candidate_matches_count": 672,
+        "inlier_ratio_percent": 59.523809523809526,
+        "rmse_inliers_px": 0.215361550450325,
+        "rmse_ground_truth_px": 15.754487991333008,
+        "mean_subpixel_residual_px": 0.059531763195991516,
+        "spatial_gini": 0.0,
+        "latency_ms": 10575.76847076416
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_08_low_texture_maria",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 30.0,
+      "metrics": {
+        "inlier_match_count": 400,
+        "candidate_matches_count": 767,
+        "inlier_ratio_percent": 52.15123859191656,
+        "rmse_inliers_px": 0.04763904586434364,
+        "rmse_ground_truth_px": 15.827455520629883,
+        "mean_subpixel_residual_px": 0.040581170469522476,
+        "spatial_gini": 0.0,
+        "latency_ms": 10558.57229232788
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_08_low_texture_maria",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 30.0,
+      "metrics": {
+        "inlier_match_count": 400,
+        "candidate_matches_count": 672,
+        "inlier_ratio_percent": 59.523809523809526,
+        "rmse_inliers_px": 0.215361550450325,
+        "rmse_ground_truth_px": 15.754487991333008,
+        "mean_subpixel_residual_px": 0.059531763195991516,
+        "spatial_gini": 0.0,
+        "latency_ms": 10520.7679271698
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_08_low_texture_maria",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 30.0,
+      "metrics": {
+        "inlier_match_count": 400,
+        "candidate_matches_count": 672,
+        "inlier_ratio_percent": 59.523809523809526,
+        "rmse_inliers_px": 0.8903533816337585,
+        "rmse_ground_truth_px": 15.801793098449707,
+        "mean_subpixel_residual_px": 0.5759498476982117,
+        "spatial_gini": 0.0,
+        "latency_ms": 10378.040313720703
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_09_dense_crater_highlands",
+      "config_name": "SIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 60.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 16,
+        "inlier_ratio_percent": 25.0,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 588.9942016601562,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.84375,
+        "latency_ms": 496.0317611694336
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_09_dense_crater_highlands",
+      "config_name": "RIFT_Baseline",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 60.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 5,
+        "inlier_ratio_percent": 80.0,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 469.53857421875,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.84375,
+        "latency_ms": 9810.880899429321
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_09_dense_crater_highlands",
+      "config_name": "Proposed_Full",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 60.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 9,
+        "inlier_ratio_percent": 44.44444444444444,
+        "rmse_inliers_px": 122.80606079101562,
+        "rmse_ground_truth_px": 485.53912353515625,
+        "mean_subpixel_residual_px": 61.40303039550781,
+        "spatial_gini": 0.84375,
+        "latency_ms": 10298.572301864624
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_09_dense_crater_highlands",
+      "config_name": "Ablation_No_Scale_Pyramid",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 60.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 9,
+        "inlier_ratio_percent": 44.44444444444444,
+        "rmse_inliers_px": 122.80606079101562,
+        "rmse_ground_truth_px": 485.53912353515625,
+        "mean_subpixel_residual_px": 61.40303039550781,
+        "spatial_gini": 0.84375,
+        "latency_ms": 10144.31643486023
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_09_dense_crater_highlands",
+      "config_name": "Ablation_No_Shadow_Suppression",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 60.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 7,
+        "inlier_ratio_percent": 57.14285714285714,
+        "rmse_inliers_px": 137.7020263671875,
+        "rmse_ground_truth_px": 311.9880065917969,
+        "mean_subpixel_residual_px": 68.85101318359375,
+        "spatial_gini": 0.84375,
+        "latency_ms": 9791.12982749939
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_09_dense_crater_highlands",
+      "config_name": "Ablation_No_Dynamic_Model",
+      "status": "SUCCESS",
+      "transformation_model": "HOMOGRAPHY",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 60.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 9,
+        "inlier_ratio_percent": 44.44444444444444,
+        "rmse_inliers_px": 0.0,
+        "rmse_ground_truth_px": 469.53857421875,
+        "mean_subpixel_residual_px": 0.0,
+        "spatial_gini": 0.84375,
+        "latency_ms": 9659.603834152222
+      }
+    },
+    {
+      "suite_name": "suite_e_difficult_terrain",
+      "pair_name": "pair_09_dense_crater_highlands",
+      "config_name": "Ablation_No_Subpixel",
+      "status": "SUCCESS",
+      "transformation_model": "AFFINE",
+      "scale_ratio": 1.0,
+      "delta_sun_azimuth_deg": 60.0,
+      "metrics": {
+        "inlier_match_count": 4,
+        "candidate_matches_count": 9,
+        "inlier_ratio_percent": 44.44444444444444,
+        "rmse_inliers_px": 122.61051177978516,
+        "rmse_ground_truth_px": 485.5099792480469,
+        "mean_subpixel_residual_px": 61.30525588989258,
+        "spatial_gini": 0.84375,
+        "latency_ms": 10916.127443313599
+      }
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "pair_name": "pair_02_sun_angle_90deg",
+  "suite_name": "suite_b_sun_angle",
+  "algorithm": "SIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 1.0,
+  "delta_sun_azimuth_deg": 90.0,
+  "metrics": {
+    "inlier_match_count": 4,
+    "candidate_matches_count": 11,
+    "inlier_ratio_percent": 36.36363636363637,
+    "rmse_inliers_px": 0.0,
+    "rmse_ground_truth_px": 461.9768981933594,
+    "mean_subpixel_residual_px": 0.0,
+    "subpixel_accuracy_rate_05px": 100.0,
+    "spatial_gini_coefficient": 0.75,
+    "latency_ms": 421.2079048156738
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 148.08646202087402,
+        "original_std": 44.399325826830434,
+        "p_low": 46.0,
+        "p_high": 234.0,
+        "width": 1024,
+        "height": 1024
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 147.55999660491943,
+        "original_std": 44.593037264004366,
+        "p_low": 36.0,
+        "p_high": 234.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 129,
+      "reference_keypoints_count": 184,
+      "detection_time_ms": 300.6720542907715
+    },
+    "matching": {
+      "raw_matches": 12,
+      "filtered_matches": 11
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 4,
+      "outlier_count": 7,
+      "inlier_ratio_percent": 36.36363636363637,
+      "mean_rmse_px": 0.0
+    },
+    "spatial_distribution": {
+      "filter_applied": false
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 4,
+      "refined_points_count": 1,
+      "success_rate": 0.25,
+      "mean_subpixel_displacement": 0.3158826231956482,
+      "max_subpixel_displacement": 1.2635304927825928
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_b_sun_angle\\pair_02_sun_angle_90deg\\sift_baseline"
+}

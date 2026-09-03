@@ -1,0 +1,64 @@
+{
+  "pair_id": "SUITE_D_PAIR_07",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "challenge_description": "Cross-modal non-linear spectral absorption (IIRS SWIR vs Panchromatic)",
+  "image_1": {
+    "provenance_schema_version": "1.1",
+    "timestamp_created_utc": "2026-09-01T06:31:09Z",
+    "data_category": "SYNTHETIC_BENCHMARK",
+    "is_synthetic": true,
+    "product_id": "SUITE_D_PAIR_07_SYNTH_IMG1",
+    "instrument_id": "CH2_IIRS",
+    "target_name": "Moon (Synthetic Simulation)",
+    "acquisition_time_utc": "2026-09-01T00:00:00Z",
+    "solar_geometry": {
+      "sun_azimuth_deg": 50.0,
+      "incidence_angle_deg": 45.0,
+      "emission_angle_deg": null,
+      "phase_angle_deg": null
+    },
+    "spatial_bounds": {
+      "min_lat": null,
+      "max_lat": null,
+      "min_lon": null,
+      "max_lon": null,
+      "gsd_m": 80.0
+    },
+    "projection": "Simple Cylindrical (Simulation Frame)",
+    "file_integrity": {
+      "image_filename": "image_1.png",
+      "image_path": "data/benchmark/suite_d_cross_modal/pair_07_cross_modal_swir_pan/image_1.png",
+      "sha256_checksum": "89af912c4024e402a5b03945918cd4357d60c944ae6bd715733ebf2372682915",
+      "file_size_bytes": 336867,
+      "raw_label_path": "data/benchmark/suite_d_cross_modal/pair_07_cross_modal_swir_pan/ground_truth.json"
+    },
+    "source_provenance": {
+      "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+      "license_type": "Open Research Dataset",
+      "notes": "Synthetic Simulation of CH2_IIRS"
+    }
+  },
+  "image_2_simulated_sensor": "CH2_TMC2",
+  "image_2_gsd_m": 5.0,
+  "delta_sun_azimuth_deg": 5.0,
+  "scale_ratio": 1.0,
+  "cross_modal": true,
+  "ground_truth_homography": [
+    [
+      0.9975640502598242,
+      0.0697564737441253,
+      -24.468108290022144
+    ],
+    [
+      -0.0697564737441253,
+      0.9975640502598242,
+      26.962520823962166
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ]
+}

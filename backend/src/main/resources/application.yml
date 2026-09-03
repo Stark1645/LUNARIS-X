@@ -1,0 +1,49 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: lunar-registration-backend
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/lunar_registration_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 200MB
+
+# Python CV / ML Microservice Integration
+python:
+  ml:
+    service:
+      url: ${PYTHON_ML_SERVICE_URL:http://localhost:8000}
+      connect-timeout-ms: ${PYTHON_ML_CONNECT_TIMEOUT:5000}
+      read-timeout-ms: ${PYTHON_ML_READ_TIMEOUT:60000}
+
+# Local File Storage for Images & Diagnostic Products
+storage:
+  location: ${STORAGE_LOCATION:data/storage}
+
+# Springdoc OpenAPI / Swagger Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha

@@ -1,0 +1,94 @@
+{
+  "pair_name": "pair_05_scale_16x_tmc2_ohrc",
+  "suite_name": "suite_c_scale_disparity",
+  "algorithm": "SIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 16.0,
+  "delta_sun_azimuth_deg": 15.0,
+  "metrics": {
+    "inlier_match_count": 5,
+    "candidate_matches_count": 8,
+    "inlier_ratio_percent": 62.5,
+    "rmse_inliers_px": 0.0,
+    "rmse_ground_truth_px": 6.794392108917236,
+    "mean_subpixel_residual_px": 0.0,
+    "subpixel_accuracy_rate_05px": 100.0,
+    "spatial_gini_coefficient": 0.9375,
+    "latency_ms": 200.39796829223633
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 33.0,
+        "original_max": 250.0,
+        "original_mean": 176.7783203125,
+        "original_std": 23.36906004723232,
+        "p_low": 102.0,
+        "p_high": 228.0,
+        "width": 64,
+        "height": 64
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 176.8008680343628,
+        "original_std": 26.362134050782405,
+        "p_low": 91.0,
+        "p_high": 235.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 32,
+      "reference_keypoints_count": 130,
+      "detection_time_ms": 144.1478729248047
+    },
+    "matching": {
+      "raw_matches": 8,
+      "filtered_matches": 8
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 5,
+      "outlier_count": 3,
+      "inlier_ratio_percent": 62.5,
+      "mean_rmse_px": 0.0
+    },
+    "spatial_distribution": {
+      "filter_applied": false
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 5,
+      "refined_points_count": 1,
+      "success_rate": 0.2,
+      "mean_subpixel_displacement": 0.4523760676383972,
+      "max_subpixel_displacement": 2.261880397796631
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_c_scale_disparity\\pair_05_scale_16x_tmc2_ohrc\\sift_baseline"
+}

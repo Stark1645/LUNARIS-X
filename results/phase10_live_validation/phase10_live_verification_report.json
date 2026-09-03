@@ -1,0 +1,456 @@
+{
+  "timestamp": "2026-09-02T16:37:13Z",
+  "live_demo_results": [
+    {
+      "pair_name": "pair_01",
+      "job_id": 28,
+      "status": "SUCCESS",
+      "selected_model": "HOMOGRAPHY",
+      "candidate_matches": 427,
+      "inlier_matches": 382,
+      "inlier_ratio_percent": 89.46135831381733,
+      "inlier_rmse_px": 0.22613655030727386,
+      "gt_rmse_px": null,
+      "subpixel_residual_px": 0.07351916283369064,
+      "spatial_gini": 0.3226439790575916,
+      "ml_latency_ms": 10037.368059158325,
+      "total_roundtrip_ms": 11189.825296401978,
+      "matrix_json": "[[1.0000832715276768,-3.1580976958123286E-5,0.016192942451642718],[1.4317290888626094E-5,1.0000331737796762,-0.007995828992616584],[8.336003483128081E-8,-8.535731081339154E-9,1.0]]",
+      "visual_validation": {
+        "warped": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 374087
+        },
+        "overlay": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1280251
+        },
+        "checkerboard": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 906194
+        },
+        "diff_map": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1216337
+        },
+        "match_visualization": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            2048,
+            1024
+          ],
+          "size_bytes": 2022458
+        }
+      },
+      "db_verified": true
+    },
+    {
+      "pair_name": "pair_03",
+      "job_id": 29,
+      "status": "SUCCESS",
+      "selected_model": "HOMOGRAPHY",
+      "candidate_matches": 36,
+      "inlier_matches": 12,
+      "inlier_ratio_percent": 33.33333333333333,
+      "inlier_rmse_px": 1.770781397819519,
+      "gt_rmse_px": null,
+      "subpixel_residual_px": 1.6546454429626465,
+      "spatial_gini": 0.6145833333333334,
+      "ml_latency_ms": 9856.316089630127,
+      "total_roundtrip_ms": 10514.004707336426,
+      "matrix_json": "[[1.0443214673634045,-0.059916012000601905,6.231462984191637],[0.0934262183223103,1.0345245695335357,-23.852369451672658],[2.5489370421403934E-5,2.8847905226289903E-5,1.0]]",
+      "visual_validation": {
+        "warped": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 381290
+        },
+        "overlay": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 760272
+        },
+        "checkerboard": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 955391
+        },
+        "diff_map": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1543415
+        },
+        "match_visualization": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            2048,
+            1024
+          ],
+          "size_bytes": 2095146
+        }
+      },
+      "db_verified": true
+    },
+    {
+      "pair_name": "pair_04",
+      "job_id": 30,
+      "status": "SUCCESS",
+      "selected_model": "HOMOGRAPHY",
+      "candidate_matches": 95,
+      "inlier_matches": 87,
+      "inlier_ratio_percent": 91.57894736842105,
+      "inlier_rmse_px": 1.2715235948562622,
+      "gt_rmse_px": null,
+      "subpixel_residual_px": 1.084510326385498,
+      "spatial_gini": 0.9375,
+      "ml_latency_ms": 110.82315444946289,
+      "total_roundtrip_ms": 745.7931041717529,
+      "matrix_json": "[[4.005235120656906,-0.0063347397953175235,0.16728686808127316],[0.007866368445613022,3.9902301836557847,-0.2249038940409254],[1.036923946868454E-5,-1.3637898601764085E-5,1.0]]",
+      "visual_validation": {
+        "warped": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 323124
+        },
+        "overlay": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 937837
+        },
+        "checkerboard": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 904685
+        },
+        "diff_map": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1211518
+        },
+        "match_visualization": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1280,
+            1024
+          ],
+          "size_bytes": 1507576
+        }
+      },
+      "db_verified": true
+    },
+    {
+      "pair_name": "pair_06",
+      "job_id": 31,
+      "status": "SUCCESS",
+      "selected_model": "AFFINE",
+      "candidate_matches": 13,
+      "inlier_matches": 7,
+      "inlier_ratio_percent": 53.84615384615385,
+      "inlier_rmse_px": 1.0461169481277466,
+      "gt_rmse_px": null,
+      "subpixel_residual_px": 0.9615511894226074,
+      "spatial_gini": 0.9375,
+      "ml_latency_ms": 71.59662246704102,
+      "total_roundtrip_ms": 596.916675567627,
+      "matrix_json": "[[19.515406655416648,-0.7199466572934703,40.35793666441818],[1.4758146632576163,19.820340219210255,-37.159763632269446],[0.0,0.0,1.0]]",
+      "visual_validation": {
+        "warped": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 281882
+        },
+        "overlay": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 798655
+        },
+        "checkerboard": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 862061
+        },
+        "diff_map": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1338234
+        },
+        "match_visualization": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1075,
+            1024
+          ],
+          "size_bytes": 1177664
+        }
+      },
+      "db_verified": true
+    },
+    {
+      "pair_name": "pair_07",
+      "job_id": 32,
+      "status": "SUCCESS",
+      "selected_model": "HOMOGRAPHY",
+      "candidate_matches": 194,
+      "inlier_matches": 166,
+      "inlier_ratio_percent": 85.56701030927834,
+      "inlier_rmse_px": 1.563184380531311,
+      "gt_rmse_px": null,
+      "subpixel_residual_px": 1.2238473892211914,
+      "spatial_gini": 0.4314759036144578,
+      "ml_latency_ms": 10042.87052154541,
+      "total_roundtrip_ms": 10887.439012527466,
+      "matrix_json": "[[0.9971364003594391,-9.501790836870112E-4,0.8368070411288691],[-4.620624621853571E-4,0.9968762144399383,0.5393011750333004],[-1.153063109311095E-6,-2.469576203176675E-6,1.0]]",
+      "visual_validation": {
+        "warped": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 419848
+        },
+        "overlay": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 817622
+        },
+        "checkerboard": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1041855
+        },
+        "diff_map": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1584451
+        },
+        "match_visualization": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            2048,
+            1024
+          ],
+          "size_bytes": 1936357
+        }
+      },
+      "db_verified": true
+    },
+    {
+      "pair_name": "pair_08",
+      "job_id": 33,
+      "status": "SUCCESS",
+      "selected_model": "HOMOGRAPHY",
+      "candidate_matches": 672,
+      "inlier_matches": 400,
+      "inlier_ratio_percent": 59.523809523809526,
+      "inlier_rmse_px": 0.215361550450325,
+      "gt_rmse_px": null,
+      "subpixel_residual_px": 0.059531763195991516,
+      "spatial_gini": 0.0,
+      "ml_latency_ms": 9951.807260513306,
+      "total_roundtrip_ms": 11118.447065353394,
+      "matrix_json": "[[1.000091743775944,-9.07477423184147E-5,5.362188928922837E-4],[7.788546458326616E-5,0.9998946327529025,0.010021628255643657],[1.0789318639623095E-7,-1.1952928777070455E-7,0.9999999999999999]]",
+      "visual_validation": {
+        "warped": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 498124
+        },
+        "overlay": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1601687
+        },
+        "checkerboard": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1296692
+        },
+        "diff_map": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "size_bytes": 1989120
+        },
+        "match_visualization": {
+          "valid": true,
+          "format": "PNG",
+          "dimensions": [
+            2048,
+            1024
+          ],
+          "size_bytes": 2474698
+        }
+      },
+      "db_verified": true
+    }
+  ],
+  "negative_test_results": {
+    "unsupported_extension": {
+      "expected_code": 400,
+      "actual_code": 400,
+      "passed": true,
+      "response": {
+        "timestamp": [
+          2026,
+          9,
+          2,
+          22,
+          7,
+          13,
+          760684400
+        ],
+        "status": 400,
+        "error": "Bad Request",
+        "message": "Unsupported file type: .exe. Allowed: [.png, .jpg, .jpeg, .tif, .tiff, .raw]",
+        "path": "/api/v1/images/upload",
+        "validationErrors": null
+      }
+    },
+    "missing_source_id": {
+      "expected_code": 400,
+      "actual_code": 400,
+      "passed": true,
+      "response": {
+        "timestamp": [
+          2026,
+          9,
+          2,
+          22,
+          7,
+          13,
+          768230100
+        ],
+        "status": 400,
+        "error": "Validation Failed",
+        "message": "Input argument validation failed",
+        "path": "/api/v1/jobs/register",
+        "validationErrors": [
+          "sourceImageId: Source image ID must not be null"
+        ]
+      }
+    },
+    "nonexistent_job_id": {
+      "expected_code": 404,
+      "actual_code": 404,
+      "passed": true,
+      "response": {
+        "timestamp": [
+          2026,
+          9,
+          2,
+          22,
+          7,
+          13,
+          793512700
+        ],
+        "status": 404,
+        "error": "Not Found",
+        "message": "Registration job not found with ID: 999999",
+        "path": "/api/v1/jobs/999999",
+        "validationErrors": null
+      }
+    }
+  }
+}

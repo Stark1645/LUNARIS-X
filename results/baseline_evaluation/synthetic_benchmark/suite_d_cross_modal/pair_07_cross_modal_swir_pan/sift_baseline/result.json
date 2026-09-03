@@ -1,0 +1,94 @@
+{
+  "pair_name": "pair_07_cross_modal_swir_pan",
+  "suite_name": "suite_d_cross_modal",
+  "algorithm": "SIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 1.0,
+  "delta_sun_azimuth_deg": 5.0,
+  "metrics": {
+    "inlier_match_count": 4,
+    "candidate_matches_count": 9,
+    "inlier_ratio_percent": 44.44444444444444,
+    "rmse_inliers_px": 0.0,
+    "rmse_ground_truth_px": 519.15478515625,
+    "mean_subpixel_residual_px": 0.0,
+    "subpixel_accuracy_rate_05px": 100.0,
+    "spatial_gini_coefficient": 0.90625,
+    "latency_ms": 445.0194835662842
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 188.2468614578247,
+        "original_std": 23.977823664586175,
+        "p_low": 115.0,
+        "p_high": 241.0,
+        "width": 1024,
+        "height": 1024
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 0.0,
+        "original_max": 255.0,
+        "original_mean": 30.998791694641113,
+        "original_std": 19.316544772007624,
+        "p_low": 3.0,
+        "p_high": 99.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 131,
+      "reference_keypoints_count": 151,
+      "detection_time_ms": 320.19853591918945
+    },
+    "matching": {
+      "raw_matches": 13,
+      "filtered_matches": 9
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 4,
+      "outlier_count": 5,
+      "inlier_ratio_percent": 44.44444444444444,
+      "mean_rmse_px": 0.0
+    },
+    "spatial_distribution": {
+      "filter_applied": false
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 4,
+      "refined_points_count": 0,
+      "success_rate": 0.0,
+      "mean_subpixel_displacement": 0.0,
+      "max_subpixel_displacement": 0.0
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_d_cross_modal\\pair_07_cross_modal_swir_pan\\sift_baseline"
+}

@@ -1,0 +1,34 @@
+{
+  "is_synthetic": true,
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "generation_model": "Lommel-Seeliger Photometric Shading on C1-Smooth Lunar DEM",
+  "sun_azimuth_1_deg": 60.0,
+  "sun_azimuth_2_deg": 75.0,
+  "delta_sun_azimuth_deg": 15.0,
+  "incidence_1_deg": 50.0,
+  "incidence_2_deg": 50.0,
+  "scale_ratio": 16.0,
+  "rotation_deg": 2.0,
+  "translation_px": [
+    0.0,
+    0.0
+  ],
+  "cross_modal": false,
+  "ground_truth_homography": [
+    [
+      15.990253232305532,
+      0.5583919472400155,
+      -17.556645745457526
+    ],
+    [
+      -0.5583919472400155,
+      15.990253232305532,
+      18.180438877903466
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ]
+}

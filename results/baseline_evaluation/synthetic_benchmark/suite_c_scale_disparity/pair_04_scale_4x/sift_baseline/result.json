@@ -1,0 +1,98 @@
+{
+  "pair_name": "pair_04_scale_4x",
+  "suite_name": "suite_c_scale_disparity",
+  "algorithm": "SIFT_Baseline",
+  "transformation_model": "HOMOGRAPHY",
+  "status": "SUCCESS",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "scale_ratio": 4.0,
+  "delta_sun_azimuth_deg": 5.0,
+  "metrics": {
+    "inlier_match_count": 67,
+    "candidate_matches_count": 72,
+    "inlier_ratio_percent": 93.05555555555556,
+    "rmse_inliers_px": 1.3081777095794678,
+    "rmse_ground_truth_px": 1.2555279731750488,
+    "mean_subpixel_residual_px": 1.084612250328064,
+    "subpixel_accuracy_rate_05px": 19.402985074626866,
+    "spatial_gini_coefficient": 0.9375,
+    "latency_ms": 390.5792236328125
+  },
+  "step_diagnostics": {
+    "validation": {
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "reference_dimensions": [
+        1024,
+        1024
+      ],
+      "source_gsd_m": null,
+      "reference_gsd_m": null
+    },
+    "preprocessing": {
+      "source": {
+        "original_dtype": "uint8",
+        "original_min": 43.0,
+        "original_max": 255.0,
+        "original_mean": 187.8590545654297,
+        "original_std": 21.35400897836166,
+        "p_low": 118.0,
+        "p_high": 236.0,
+        "width": 256,
+        "height": 256
+      },
+      "reference": {
+        "original_dtype": "uint8",
+        "original_min": 20.0,
+        "original_max": 255.0,
+        "original_mean": 187.86955642700195,
+        "original_std": 21.758876303137534,
+        "p_low": 117.0,
+        "p_high": 237.0,
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "multiscale": {
+      "estimated_scale_ratio": 1.0
+    },
+    "features": {
+      "source_keypoints_count": 102,
+      "reference_keypoints_count": 138,
+      "detection_time_ms": 306.9014549255371
+    },
+    "matching": {
+      "raw_matches": 73,
+      "filtered_matches": 72
+    },
+    "geometric_verification": {
+      "is_valid": true,
+      "inlier_count": 67,
+      "outlier_count": 5,
+      "inlier_ratio_percent": 93.05555555555556,
+      "mean_rmse_px": 1.1403647661209106
+    },
+    "spatial_distribution": {
+      "initial_gini": 0.29197761194029853,
+      "filtered_gini": 0.29197761194029853,
+      "initial_count": 67,
+      "filtered_count": 67,
+      "occupied_bins": 16
+    },
+    "transformation": {
+      "model_type": "HOMOGRAPHY",
+      "status": "SUCCESS"
+    },
+    "subpixel_refinement": {
+      "total_points": 67,
+      "refined_points_count": 13,
+      "success_rate": 0.19402985074626866,
+      "mean_subpixel_displacement": 0.32331159710884094,
+      "max_subpixel_displacement": 3.102386951446533
+    }
+  },
+  "artifacts_dir": "results/baseline_evaluation\\synthetic_benchmark\\suite_c_scale_disparity\\pair_04_scale_4x\\sift_baseline"
+}
