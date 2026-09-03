@@ -17,6 +17,8 @@ import java.io.File;
 @Service
 public class PythonMlClientService {
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PythonMlClientService.class);
+
     private final RestTemplate restTemplate;
     private final String pythonBaseUrl;
     private final ObjectMapper objectMapper;
@@ -79,13 +81,20 @@ public class PythonMlClientService {
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(registerUrl, requestEntity, String.class);
             if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-                throw new PythonServiceUnavailableException("Python ML service returned error HTTP status: " + response.getStatusCode());
+                throw new PythonServiceUnavailableException("Python ML service returned error HTTP status: " + response.getStatusCode() + " body: " + response.getBody());
             }
             return objectMapper.readTree(response.getBody());
+        } catch (PythonServiceUnavailableException e) {
+            throw e;
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            log.error("Python ML service returned HTTP error: {} body: {}", e.getStatusCode(), e.getResponseBodyAsString(), e);
+            throw new PythonServiceUnavailableException("Python ML service error (" + e.getStatusCode() + "): " + e.getResponseBodyAsString(), e);
         } catch (RestClientException e) {
+            log.error("Failed to communicate with Python ML Service at: {}", registerUrl, e);
             throw new PythonServiceUnavailableException("Failed to communicate with Python ML Service at: " + registerUrl + ". Cause: " + e.getMessage(), e);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to parse Python ML response", e);
+            log.error("Failed to parse Python ML response", e);
+            throw new RuntimeException("Failed to parse Python ML response: " + e.getMessage(), e);
         }
     }
 

@@ -17,6 +17,8 @@ import java.util.List;
 @Service
 public class RegistrationService {
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RegistrationService.class);
+
     private final ImageRepository imageRepository;
     private final RegistrationJobRepository jobRepository;
     private final MatchPointRepository matchPointRepository;
@@ -39,7 +41,7 @@ public class RegistrationService {
         this.objectMapper = objectMapper;
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = Exception.class)
     public RegistrationResponseDTO createAndExecuteJob(RegistrationRequestDTO request) {
         ImageEntity srcEntity = imageRepository.findById(request.getSourceImageId())
                 .orElseThrow(() -> new ResourceNotFoundException("Source image not found with ID: " + request.getSourceImageId()));
@@ -143,11 +145,16 @@ public class RegistrationService {
             return dto;
 
         } catch (Exception e) {
+            log.error("Registration execution failed for job ID: {}", job.getId(), e);
             job.setStatus("FAILED");
             job.setFailureReason(e.getMessage());
             job.setCompletedAt(LocalDateTime.now());
-            jobRepository.save(job);
-            throw e;
+            job = jobRepository.save(job);
+
+            RegistrationResponseDTO failedDto = mapToResponseDTO(job);
+            failedDto.setStatus("FAILED");
+            failedDto.setFailureReason(e.getMessage());
+            return failedDto;
         }
     }
 

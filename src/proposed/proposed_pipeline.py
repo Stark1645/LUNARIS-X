@@ -96,11 +96,29 @@ class ProposedRegistrationPipeline:
         h_s, w_s = src_norm.shape[:2]
         h_r, w_r = ref_norm.shape[:2]
 
-        step_diag["preprocessing"] = {"source": src_stats, "reference": ref_stats}
+        # Multi-scale limit for ultra-large satellite strips (> 2048 px)
+        max_dim = 2048
+        scale_s = min(1.0, float(max_dim) / float(max(h_s, w_s))) if max(h_s, w_s) > max_dim else 1.0
+        scale_r = min(1.0, float(max_dim) / float(max(h_r, w_r))) if max(h_r, w_r) > max_dim else 1.0
+
+        if scale_s < 1.0:
+            src_proc = cv2.resize(src_norm, (int(round(w_s * scale_s)), int(round(h_s * scale_s))), interpolation=cv2.INTER_AREA)
+        else:
+            src_proc = src_norm
+
+        if scale_r < 1.0:
+            ref_proc = cv2.resize(ref_norm, (int(round(w_r * scale_r)), int(round(h_r * scale_r))), interpolation=cv2.INTER_AREA)
+        else:
+            ref_proc = ref_norm
+
+        h_proc_s, w_proc_s = src_proc.shape[:2]
+        h_proc_r, w_proc_r = ref_proc.shape[:2]
+
+        step_diag["preprocessing"] = {"source": src_stats, "reference": ref_stats, "working_scale": {"scale_src": scale_s, "scale_ref": scale_r}}
 
         # 2. Condition Analysis (Innovation A)
         chars: ImagePairCharacteristics = ImagePairConditionAnalyzer.analyze(
-            src_norm, ref_norm, gsd_source_m, gsd_reference_m
+            src_proc, ref_proc, gsd_source_m, gsd_reference_m
         )
         step_diag["condition_analysis"] = {
             "scale_ratio": chars.scale_ratio,
@@ -118,12 +136,12 @@ class ProposedRegistrationPipeline:
         if self.enable_adaptive_strategy and chars.is_scale_disparate and self.enable_scale_pyramid:
             # Scale disparate -> use multi-scale pyramid bridge with SIFT/Structural features
             match_res = self.scale_matcher_sift.match_scale_disparate_pair(
-                src_norm, ref_norm, estimated_scale_ratio=chars.scale_ratio
+                src_proc, ref_proc, estimated_scale_ratio=chars.scale_ratio
             )
             # If SIFT pyramid matches are few, augment with structural scale matcher
             if match_res.filtered_matches_count < 10:
                 match_res_struct = self.scale_matcher.match_scale_disparate_pair(
-                    src_norm, ref_norm, estimated_scale_ratio=chars.scale_ratio
+                    src_proc, ref_proc, estimated_scale_ratio=chars.scale_ratio
                 )
                 if match_res_struct.filtered_matches_count > match_res.filtered_matches_count:
                     match_res = match_res_struct
@@ -132,22 +150,22 @@ class ProposedRegistrationPipeline:
             # Illumination inverted -> use Structural Phase Congruency
             if self.enable_scale_pyramid and chars.scale_ratio > 1.5:
                 match_res = self.scale_matcher.match_scale_disparate_pair(
-                    src_norm, ref_norm, estimated_scale_ratio=chars.scale_ratio
+                    src_proc, ref_proc, estimated_scale_ratio=chars.scale_ratio
                 )
             else:
-                kps_src, desc_src = self.structural_detector.detect_and_compute(src_norm)
-                kps_ref, desc_ref = self.structural_detector.detect_and_compute(ref_norm)
+                kps_src, desc_src = self.structural_detector.detect_and_compute(src_proc)
+                kps_ref, desc_ref = self.structural_detector.detect_and_compute(ref_proc)
                 match_res = self.scale_matcher.matcher.match(kps_src, desc_src, kps_ref, desc_ref)
 
         else:
             # Standard / Hybrid strategy
             if self.enable_scale_pyramid and chars.scale_ratio > 1.5:
                 match_res = self.scale_matcher.match_scale_disparate_pair(
-                    src_norm, ref_norm, estimated_scale_ratio=chars.scale_ratio
+                    src_proc, ref_proc, estimated_scale_ratio=chars.scale_ratio
                 )
             else:
-                kps_src, desc_src = self.structural_detector.detect_and_compute(src_norm)
-                kps_ref, desc_ref = self.structural_detector.detect_and_compute(ref_norm)
+                kps_src, desc_src = self.structural_detector.detect_and_compute(src_proc)
+                kps_ref, desc_ref = self.structural_detector.detect_and_compute(ref_proc)
                 match_res = self.scale_matcher.matcher.match(kps_src, desc_src, kps_ref, desc_ref)
 
         step_diag["matching"] = {
@@ -159,7 +177,7 @@ class ProposedRegistrationPipeline:
         geom_res = self.verifier.verify(
             match_res.source_points,
             match_res.reference_points,
-            image_shape=(h_r, w_r),
+            image_shape=(h_proc_r, w_proc_r),
             preferred_model=TransformationType.HOMOGRAPHY
         )
 
@@ -181,20 +199,26 @@ class ProposedRegistrationPipeline:
                 candidate_count=match_res.filtered_matches_count,
                 algorithm_name=self.algorithm_name,
                 transformation_model="NONE",
-                image_shape=(h_r, w_r),
+                image_shape=(h_proc_r, w_proc_r),
                 H_ground_truth=ground_truth_homography,
                 latency_ms=latency,
                 is_synthetic=is_synthetic,
                 dataset_category=dataset_category
             )
 
-            empty_vis = np.zeros((h_r, w_s + w_r, 3), dtype=np.uint8)
+            empty_vis = RegistrationVisualizer.draw_matches(
+                src_proc, ref_proc,
+                match_res.source_points,
+                match_res.reference_points,
+                inlier_mask=geom_res.inlier_mask
+            )
+
             return RegistrationOutput(
                 status="FAILED",
                 algorithm=self.algorithm_name,
                 transformation_model="NONE",
-                warped_source_image=np.zeros_like(ref_norm),
-                reference_image=ref_norm,
+                warped_source_image=src_proc,
+                reference_image=ref_proc,
                 raw_source_image=src_norm,
                 transformation_matrix=np.eye(3, dtype=np.float64),
                 candidate_matches_count=match_res.filtered_matches_count,
@@ -208,9 +232,9 @@ class ProposedRegistrationPipeline:
                 subpixel_displacement_mags=np.empty((0,), dtype=np.float32),
                 metrics=failed_metrics,
                 match_visualization=empty_vis,
-                alpha_overlay=ref_norm,
-                checkerboard=ref_norm,
-                difference_map=np.zeros_like(ref_norm),
+                alpha_overlay=ref_proc,
+                checkerboard=ref_proc,
+                difference_map=np.zeros_like(ref_proc),
                 step_diagnostics=step_diag
             )
 
@@ -220,7 +244,7 @@ class ProposedRegistrationPipeline:
 
         if self.enable_spatial_filter and len(inliers_src) > 16:
             inliers_src, inliers_ref, dist_stats = self.spatial_filter.filter_inliers(
-                inliers_src, inliers_ref, image_shape=(h_s, w_s)
+                inliers_src, inliers_ref, image_shape=(h_proc_s, w_proc_s)
             )
             step_diag["spatial_distribution"] = dist_stats
         else:
@@ -229,7 +253,7 @@ class ProposedRegistrationPipeline:
         # 6. Dynamic Transformation Model Selection (Innovation E)
         if self.enable_dynamic_model:
             H_final, model_type, model_stats = DynamicModelSelector.select_and_estimate(
-                inliers_src, inliers_ref, image_shape=(h_s, w_s)
+                inliers_src, inliers_ref, image_shape=(h_proc_s, w_proc_s)
             )
         else:
             H_final, model_stats = TransformationEstimator.estimate_model(
@@ -248,21 +272,21 @@ class ProposedRegistrationPipeline:
 
         if self.enable_subpixel and len(inliers_src) > 0:
             refined_ref, displacements, sub_stats = self.subpixel_refiner.refine_points(
-                src_norm, ref_norm, inliers_src, inliers_ref
+                src_proc, ref_proc, inliers_src, inliers_ref
             )
             disp_mags = np.sqrt(np.sum(displacements ** 2, axis=1))
             step_diag["subpixel_refinement"] = sub_stats
 
             # Re-estimate with refined points
             H_refined, _, _ = DynamicModelSelector.select_and_estimate(
-                inliers_src, refined_ref, image_shape=(h_s, w_s), force_model=model_type
+                inliers_src, refined_ref, image_shape=(h_proc_s, w_proc_s), force_model=model_type
             )
             if H_refined is not None:
                 H_final = H_refined
 
-        # 8. Backward Image Warping
+        # 8. Backward Image Warping at working scale
         warped_src = TransformationEstimator.warp_source_to_reference(
-            src_norm, H_final, reference_shape=(h_r, w_r)
+            src_proc, H_final, reference_shape=(h_proc_r, w_proc_r)
         )
 
         # 9. Metric Calculation
@@ -275,7 +299,7 @@ class ProposedRegistrationPipeline:
             candidate_count=match_res.filtered_matches_count,
             algorithm_name=self.algorithm_name,
             transformation_model=model_type.value,
-            image_shape=(h_r, w_r),
+            image_shape=(h_proc_r, w_proc_r),
             H_ground_truth=ground_truth_homography,
             latency_ms=latency,
             is_synthetic=is_synthetic,
@@ -285,31 +309,48 @@ class ProposedRegistrationPipeline:
 
         # 10. Visualization Rendering
         match_vis = RegistrationVisualizer.draw_matches(
-            src_norm, ref_norm,
+            src_proc, ref_proc,
             match_res.source_points,
             match_res.reference_points,
             inlier_mask=geom_res.inlier_mask
         )
-        alpha_overlay = RegistrationVisualizer.draw_alpha_overlay(ref_norm, warped_src, alpha=0.5)
-        checkerboard = RegistrationVisualizer.draw_checkerboard(ref_norm, warped_src, grid_tiles=8)
-        diff_map = RegistrationVisualizer.draw_difference_map(ref_norm, warped_src)
+        alpha_overlay = RegistrationVisualizer.draw_alpha_overlay(ref_proc, warped_src, alpha=0.5)
+        checkerboard = RegistrationVisualizer.draw_checkerboard(ref_proc, warped_src, grid_tiles=8)
+        diff_map = RegistrationVisualizer.draw_difference_map(ref_proc, warped_src)
+
+        # 11. Re-project transformation matrix and inliers to native coordinate frame
+        if scale_s < 1.0 or scale_r < 1.0:
+            S_s = np.diag([scale_s, scale_s, 1.0])
+            inv_S_r = np.diag([1.0 / scale_r, 1.0 / scale_r, 1.0])
+            H_native = inv_S_r @ H_final @ S_s
+
+            inliers_src_native = (inliers_src / scale_s).astype(np.float32)
+            refined_ref_native = (refined_ref / scale_r).astype(np.float32)
+            outliers_src_native = (geom_res.outlier_src_points / scale_s).astype(np.float32) if len(geom_res.outlier_src_points) > 0 else geom_res.outlier_src_points
+            outliers_ref_native = (geom_res.outlier_ref_points / scale_r).astype(np.float32) if len(geom_res.outlier_ref_points) > 0 else geom_res.outlier_ref_points
+        else:
+            H_native = H_final
+            inliers_src_native = inliers_src
+            refined_ref_native = refined_ref
+            outliers_src_native = geom_res.outlier_src_points
+            outliers_ref_native = geom_res.outlier_ref_points
 
         return RegistrationOutput(
             status="SUCCESS",
             algorithm=self.algorithm_name,
             transformation_model=model_type.value,
             warped_source_image=warped_src,
-            reference_image=ref_norm,
+            reference_image=ref_proc,
             raw_source_image=src_norm,
-            transformation_matrix=H_final,
+            transformation_matrix=H_native,
             candidate_matches_count=match_res.filtered_matches_count,
             inlier_matches_count=len(inliers_src),
             inlier_ratio_percent=metrics.inlier_ratio_percent,
-            source_inlier_points=inliers_src,
-            reference_inlier_points=refined_ref,
-            source_outlier_points=geom_res.outlier_src_points,
-            reference_outlier_points=geom_res.outlier_ref_points,
-            subpixel_refined_points=refined_ref,
+            source_inlier_points=inliers_src_native,
+            reference_inlier_points=refined_ref_native,
+            source_outlier_points=outliers_src_native,
+            reference_outlier_points=outliers_ref_native,
+            subpixel_refined_points=refined_ref_native,
             subpixel_displacement_mags=disp_mags,
             metrics=metrics,
             match_visualization=match_vis,

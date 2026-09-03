@@ -139,9 +139,28 @@ class LunarRegistrationPipeline:
         # -------------------------------------------------------------
         src_norm, src_stats = LunarPreprocessor.normalize_radiometry(source_image)
         ref_norm, ref_stats = LunarPreprocessor.normalize_radiometry(reference_image)
-        src_mask = LunarPreprocessor.create_valid_mask(src_norm)
-        ref_mask = LunarPreprocessor.create_valid_mask(ref_norm)
-        step_diag["preprocessing"] = {"source": src_stats, "reference": ref_stats}
+
+        # Multi-scale limit for ultra-large satellite strips (> 2048 px)
+        max_dim = 2048
+        scale_s = min(1.0, float(max_dim) / float(max(h_src, w_src))) if max(h_src, w_src) > max_dim else 1.0
+        scale_r = min(1.0, float(max_dim) / float(max(h_ref, w_ref))) if max(h_ref, w_ref) > max_dim else 1.0
+
+        if scale_s < 1.0:
+            src_proc = cv2.resize(src_norm, (int(round(w_src * scale_s)), int(round(h_src * scale_s))), interpolation=cv2.INTER_AREA)
+        else:
+            src_proc = src_norm
+
+        if scale_r < 1.0:
+            ref_proc = cv2.resize(ref_norm, (int(round(w_ref * scale_r)), int(round(h_ref * scale_r))), interpolation=cv2.INTER_AREA)
+        else:
+            ref_proc = ref_norm
+
+        h_proc_s, w_proc_s = src_proc.shape[:2]
+        h_proc_r, w_proc_r = ref_proc.shape[:2]
+
+        src_mask = LunarPreprocessor.create_valid_mask(src_proc)
+        ref_mask = LunarPreprocessor.create_valid_mask(ref_proc)
+        step_diag["preprocessing"] = {"source": src_stats, "reference": ref_stats, "working_scale": {"scale_src": scale_s, "scale_ref": scale_r}}
 
         # -------------------------------------------------------------
         # 3. MULTI-SCALE REPRESENTATION
@@ -153,8 +172,8 @@ class LunarRegistrationPipeline:
         # 4. FEATURE / CORRESPONDENCE DETECTION
         # -------------------------------------------------------------
         t_feat = time.time()
-        kps_src, desc_src = self.detector.detect_and_compute(src_norm, src_mask)
-        kps_ref, desc_ref = self.detector.detect_and_compute(ref_norm, ref_mask)
+        kps_src, desc_src = self.detector.detect_and_compute(src_proc, src_mask)
+        kps_ref, desc_ref = self.detector.detect_and_compute(ref_proc, ref_mask)
         step_diag["features"] = {
             "source_keypoints_count": len(kps_src),
             "reference_keypoints_count": len(kps_ref),
@@ -223,9 +242,9 @@ class LunarRegistrationPipeline:
                 subpixel_displacement_mags=np.empty((0,), dtype=np.float32),
                 metrics=failed_metrics,
                 match_visualization=empty_vis,
-                alpha_overlay=ref_norm,
-                checkerboard=ref_norm,
-                difference_map=np.zeros_like(ref_norm),
+                alpha_overlay=ref_proc,
+                checkerboard=ref_proc,
+                difference_map=np.zeros_like(ref_proc),
                 step_diagnostics=step_diag
             )
 
@@ -237,7 +256,7 @@ class LunarRegistrationPipeline:
 
         if self.enable_spatial_filter and len(inliers_src) > 16:
             inliers_src, inliers_ref, dist_stats = self.spatial_filter.filter_inliers(
-                inliers_src, inliers_ref, image_shape=(h_src, w_src)
+                inliers_src, inliers_ref, image_shape=(h_proc_s, w_proc_s)
             )
             step_diag["spatial_distribution"] = dist_stats
         else:
@@ -261,7 +280,7 @@ class LunarRegistrationPipeline:
 
         if self.enable_subpixel and len(inliers_src) > 0:
             refined_ref_pts, displacements, sub_stats = self.subpixel_refiner.refine_points(
-                src_norm, ref_norm, inliers_src, inliers_ref
+                src_proc, ref_proc, inliers_src, inliers_ref
             )
             disp_mags = np.sqrt(np.sum(displacements ** 2, axis=1))
             step_diag["subpixel_refinement"] = sub_stats
@@ -277,9 +296,9 @@ class LunarRegistrationPipeline:
         # 13. REGISTER SOURCE IMAGE TO REFERENCE FRAME (WARPING)
         # -------------------------------------------------------------
         warped_src = TransformationEstimator.warp_source_to_reference(
-            src_norm,
+            src_proc,
             H_final,
-            reference_shape=(h_ref, w_ref)
+            reference_shape=(h_proc_r, w_proc_r)
         )
 
         spatial_quality = dist_stats.get("spatial_quality_status", "ACCEPTABLE") if self.enable_spatial_filter and len(geom_res.inlier_src_points) > 16 else "ACCEPTABLE"
@@ -295,7 +314,7 @@ class LunarRegistrationPipeline:
             candidate_count=match_res.filtered_matches_count,
             algorithm_name=self.algorithm_name,
             transformation_model=self.preferred_model.value,
-            image_shape=(h_ref, w_ref),
+            image_shape=(h_proc_r, w_proc_r),
             H_ground_truth=ground_truth_homography,
             latency_ms=latency,
             is_synthetic=is_synthetic,
@@ -307,31 +326,48 @@ class LunarRegistrationPipeline:
         # 15. VISUALIZATION & DIAGNOSTICS RENDERING
         # -------------------------------------------------------------
         match_vis = RegistrationVisualizer.draw_matches(
-            src_norm, ref_norm,
+            src_proc, ref_proc,
             match_res.source_points,
             match_res.reference_points,
             inlier_mask=geom_res.inlier_mask
         )
-        alpha_overlay = RegistrationVisualizer.draw_alpha_overlay(ref_norm, warped_src, alpha=0.5)
-        checkerboard = RegistrationVisualizer.draw_checkerboard(ref_norm, warped_src, grid_tiles=8)
-        diff_map = RegistrationVisualizer.draw_difference_map(ref_norm, warped_src)
+        alpha_overlay = RegistrationVisualizer.draw_alpha_overlay(ref_proc, warped_src, alpha=0.5)
+        checkerboard = RegistrationVisualizer.draw_checkerboard(ref_proc, warped_src, grid_tiles=8)
+        diff_map = RegistrationVisualizer.draw_difference_map(ref_proc, warped_src)
+
+        # Re-project transformation matrix and inliers to native coordinate frame
+        if scale_s < 1.0 or scale_r < 1.0:
+            S_s = np.diag([scale_s, scale_s, 1.0])
+            inv_S_r = np.diag([1.0 / scale_r, 1.0 / scale_r, 1.0])
+            H_native = inv_S_r @ H_final @ S_s
+
+            inliers_src_native = (inliers_src / scale_s).astype(np.float32)
+            refined_ref_native = (refined_ref_pts / scale_r).astype(np.float32)
+            outliers_src_native = (geom_res.outlier_src_points / scale_s).astype(np.float32) if len(geom_res.outlier_src_points) > 0 else geom_res.outlier_src_points
+            outliers_ref_native = (geom_res.outlier_ref_points / scale_r).astype(np.float32) if len(geom_res.outlier_ref_points) > 0 else geom_res.outlier_ref_points
+        else:
+            H_native = H_final
+            inliers_src_native = inliers_src
+            refined_ref_native = refined_ref_pts
+            outliers_src_native = geom_res.outlier_src_points
+            outliers_ref_native = geom_res.outlier_ref_points
 
         return RegistrationOutput(
             status="SUCCESS",
             algorithm=self.algorithm_name,
             transformation_model=self.preferred_model.value,
             warped_source_image=warped_src,
-            reference_image=ref_norm,
+            reference_image=ref_proc,
             raw_source_image=src_norm,
-            transformation_matrix=H_final,
+            transformation_matrix=H_native,
             candidate_matches_count=match_res.filtered_matches_count,
             inlier_matches_count=len(inliers_src),
             inlier_ratio_percent=metrics.inlier_ratio_percent,
-            source_inlier_points=inliers_src,
-            reference_inlier_points=refined_ref_pts,
-            source_outlier_points=geom_res.outlier_src_points,
-            reference_outlier_points=geom_res.outlier_ref_points,
-            subpixel_refined_points=refined_ref_pts,
+            source_inlier_points=inliers_src_native,
+            reference_inlier_points=refined_ref_native,
+            source_outlier_points=outliers_src_native,
+            reference_outlier_points=outliers_ref_native,
+            subpixel_refined_points=refined_ref_native,
             subpixel_displacement_mags=disp_mags,
             metrics=metrics,
             match_visualization=match_vis,
