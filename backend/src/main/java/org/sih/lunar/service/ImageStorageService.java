@@ -64,10 +64,38 @@ public class ImageStorageService {
         // Compute SHA-256
         String checksum = computeSha256(file);
 
+        // Auto-detect sensor and category from filename if not explicitly provided or if default
+        String lower = originalFilename.toLowerCase();
+        if (lower.contains("ohr")) {
+            sensorName = "OHRC";
+            if (gsdMeters == null || gsdMeters == 5.0) {
+                gsdMeters = 0.25;
+            }
+        } else if (lower.contains("tmc")) {
+            sensorName = "TMC-2";
+            if (gsdMeters == null || gsdMeters == 0.25) {
+                gsdMeters = 5.0;
+            }
+        } else if (lower.contains("iirs")) {
+            sensorName = "IIRS";
+            if (gsdMeters == null) {
+                gsdMeters = 5.0;
+            }
+        }
+
+        if (lower.startsWith("ch2_") || lower.contains("pradan") || lower.contains("_b_brw_") || lower.contains("_d_img_")) {
+            dataCategory = "AUTHENTIC_CH2_PRADAN";
+        }
+
         // Check if identical image exists
         Optional<ImageEntity> existing = imageRepository.findBySha256Checksum(checksum);
         if (existing.isPresent()) {
-            return existing.get();
+            ImageEntity entity = existing.get();
+            if (sensorName != null && !sensorName.isBlank()) entity.setSensorName(sensorName);
+            if (missionName != null && !missionName.isBlank()) entity.setMissionName(missionName);
+            if (gsdMeters != null) entity.setGsdMeters(gsdMeters);
+            if (dataCategory != null && !dataCategory.isBlank()) entity.setDataCategory(dataCategory);
+            return imageRepository.save(entity);
         }
 
         // Store file safely

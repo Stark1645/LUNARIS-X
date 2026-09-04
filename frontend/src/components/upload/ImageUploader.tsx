@@ -26,6 +26,40 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [gsdMeters, setGsdMeters] = useState<string>(role === 'SOURCE' ? '5.0' : '0.25');
   const [dataCategory, setDataCategory] = useState<DataCategory>('SYNTHETIC_BENCHMARK');
 
+  const detectMetadataFromFilename = (filename: string) => {
+    const lower = filename.toLowerCase();
+    let sensor = role === 'SOURCE' ? 'TMC-2' : 'OHRC';
+    let gsd = role === 'SOURCE' ? '5.0' : '0.25';
+    let mission = 'CHANDRAYAAN-2';
+    let category: DataCategory = 'SYNTHETIC_BENCHMARK';
+
+    if (lower.includes('ohr')) {
+      sensor = 'OHRC';
+      gsd = '0.25';
+      mission = 'CHANDRAYAAN-2';
+    } else if (lower.includes('tmc')) {
+      sensor = 'TMC-2';
+      gsd = '5.0';
+      mission = 'CHANDRAYAAN-2';
+    } else if (lower.includes('iirs')) {
+      sensor = 'IIRS';
+      gsd = '5.0';
+      mission = 'CHANDRAYAAN-2';
+    } else if (lower.includes('lro') || lower.includes('nac')) {
+      sensor = 'LRO_NAC';
+      gsd = '0.5';
+      mission = 'LUNAR RECONNAISSANCE ORBITER';
+    }
+
+    if (lower.startsWith('ch2_') || lower.includes('pradan') || lower.includes('_b_brw_') || lower.includes('_d_img_')) {
+      category = 'AUTHENTIC_CH2_PRADAN';
+    } else if (lower.includes('synthetic') || lower.includes('pair_')) {
+      category = 'SYNTHETIC_BENCHMARK';
+    }
+
+    return { sensor, gsd, mission, category };
+  };
+
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -34,8 +68,13 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     setErrorMsg(null);
 
     try {
-      const gsdNum = gsdMeters ? parseFloat(gsdMeters) : undefined;
-      const meta = await apiService.uploadImage(file, sensorName, 'CHANDRAYAAN-2', gsdNum, dataCategory);
+      const detected = detectMetadataFromFilename(file.name);
+      setSensorName(detected.sensor);
+      setGsdMeters(detected.gsd);
+      setDataCategory(detected.category);
+
+      const gsdNum = detected.gsd ? parseFloat(detected.gsd) : undefined;
+      const meta = await apiService.uploadImage(file, detected.sensor, detected.mission, gsdNum, detected.category);
       
       // Attach local preview URL for instant rendering
       meta.previewUrl = URL.createObjectURL(file);
