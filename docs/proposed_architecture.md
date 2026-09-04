@@ -1,4 +1,4 @@
-# Proposed Architecture Specification: Adaptive Multi-Scale Structural Registration (AMSR)
+# LUNARIS-X (SIH26166) — System Architecture: Proposed Method (AMSR)
 
 **Status**: Verified System Architecture  
 **Modules Location**: `src/proposed/`  

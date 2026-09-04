@@ -51,7 +51,7 @@ export const App: React.FC = () => {
           background: 'var(--bg-surface-1)',
         }}
       >
-        SIH 2026 Problem Statement SIH26166 — ISRO Chandrayaan-2 Multi-Modal Sub-Pixel Image Registration Engine.
+        LUNARIS-X (SIH26166) — ISRO Chandrayaan-2 Multi-Modal Sub-Pixel Image Registration Engine.
       </footer>
     </div>
   );

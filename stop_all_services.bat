@@ -1,9 +1,9 @@
 @echo off
-TITLE SIH 2026 (SIH26166) - Stop All Services
+TITLE LUNARIS-X (SIH26166) - Stop All Services
 COLOR 0C
 
 echo ===============================================================================
-echo   SIH 2026 (SIH26166) - Stopping All Multi-Tier Services...
+echo   LUNARIS-X (SIH26166) - Stopping All Multi-Tier Services...
 echo ===============================================================================
 echo.
 
@@ -30,7 +30,7 @@ for /f "tokens=5" %%a in ('netstat -aon ^| findstr ":3000" ^| findstr "LISTENING
 
 echo.
 echo ===============================================================================
-echo   All SIH26166 services have been terminated!
+echo   All LUNARIS-X (SIH26166) services have been terminated!
 echo ===============================================================================
 echo.
 pause

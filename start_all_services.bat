@@ -1,9 +1,9 @@
 @echo off
-TITLE SIH 2026 (SIH26166) - Multi-Tier Service Launcher
+TITLE LUNARIS-X (SIH26166) - Multi-Tier Service Launcher
 COLOR 0B
 
 echo ===============================================================================
-echo   SIH 2026 (SIH26166) - Lunar Image Registration Platform
+echo   LUNARIS-X (SIH26166) - Multi-Modal Lunar Image Registration Platform
 echo   Initializing Multi-Tier Distributed Services...
 echo ===============================================================================
 echo.
@@ -37,13 +37,13 @@ timeout /t 2 /nobreak >nul
 
 echo.
 echo [Step 2/4] Starting Python 3.13 FastAPI ML Engine on Port 8000...
-start "SIH26166 - Python ML Service [Port 8000]" cmd /k "cd /d %ROOT_DIR% && py -3.13 -m uvicorn src.api.app:app --host 0.0.0.0 --port 8000"
+start "LUNARIS-X - Python ML Service [Port 8000]" cmd /k "cd /d %ROOT_DIR% && py -3.13 -m uvicorn src.api.app:app --host 0.0.0.0 --port 8000"
 
 echo [Step 3/4] Starting Java 21 Spring Boot 3 Backend on Port 8080...
-start "SIH26166 - Spring Boot Backend [Port 8080]" cmd /k "cd /d %ROOT_DIR%backend && mvn spring-boot:run"
+start "LUNARIS-X - Spring Boot Backend [Port 8080]" cmd /k "cd /d %ROOT_DIR%backend && mvn spring-boot:run"
 
 echo [Step 4/4] Starting React 18+ Vite Frontend on Port 3000...
-start "SIH26166 - React Frontend [Port 3000]" cmd /k "cd /d %ROOT_DIR%frontend && npm.cmd run dev"
+start "LUNARIS-X - React Frontend [Port 3000]" cmd /k "cd /d %ROOT_DIR%frontend && npm.cmd run dev"
 
 echo.
 echo ===============================================================================

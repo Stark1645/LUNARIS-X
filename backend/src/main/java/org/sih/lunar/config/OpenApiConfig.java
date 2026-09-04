@@ -14,7 +14,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("SIH26166 Lunar Image Registration Engine API")
+                        .title("LUNARIS-X (SIH26166) Lunar Image Registration Engine API")
                         .version("1.0.0")
                         .description("Enterprise REST API for Automatic Sub-Pixel Registration of Chandrayaan-2 TMC-2 / OHRC and Lunar Reference Imagery.")
                         .contact(new Contact()

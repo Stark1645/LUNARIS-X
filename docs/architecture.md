@@ -1,11 +1,11 @@
-# System Architecture: SIH26166 Lunar Image Correspondence & Registration
+# System Architecture: LUNARIS-X (SIH26166) Lunar Image Correspondence & Registration
 
 ## 1. Architectural Philosophy
 The registration system addresses the core physics of Chandrayaan-2 imagery by decoupling **illumination (shadows)** from **physical surface morphology**, bridging **extreme scale differences (1:1 to 1:20+)** hierarchically, and enforcing **uniform spatial distribution** of geometrically verified inliers prior to sub-pixel refinement.
 
 ```
 +===================================================================================================================+
-|                                  SIH26166 — MASTER REGISTRATION WORKFLOW ARCHITECTURE                             |
+|                             LUNARIS-X (SIH26166) — MASTER REGISTRATION WORKFLOW ARCHITECTURE                      |
 +===================================================================================================================+
 
    +---------------------------------------+                     +---------------------------------------+

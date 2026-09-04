@@ -1,4 +1,4 @@
-# SIH 2026 (SIH26166) — Proposed Method: Adaptive Multi-Scale Structural Registration (AMSR)
+# LUNARIS-X (SIH26166) — Proposed Method: Adaptive Multi-Scale Structural Registration (AMSR)
 
 **Document Status**: Formally Validated Proposed Method  
 **Source of Truth**: SIH26166 Problem Statement  

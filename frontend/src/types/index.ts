@@ -8,6 +8,28 @@ export type DataCategory = 'SYNTHETIC_BENCHMARK' | 'AUTHENTIC_CH2_PRADAN' | 'DEM
 export type JobStatus = 'PENDING' | 'PROCESSING' | 'SUCCESS' | 'DEGRADED' | 'FAILED';
 export type SpatialQuality = 'GOOD' | 'ACCEPTABLE' | 'POOR';
 
+export interface HealthStatusDTO {
+  status: string;
+  backendVersion?: string;
+  pythonServiceStatus?: string;
+  pythonServiceUrl?: string;
+  databaseStatus?: string;
+  supportedAlgorithms?: string[];
+  implementedAlgorithms?: string[];
+  proposedAlgorithms?: string[];
+  supportedModels?: string[];
+  pradanIngestionStatus?: string;
+  pradanOverlapDetection?: string;
+}
+
+export interface ApiErrorResponse {
+  timestamp?: string;
+  status?: number;
+  error?: string;
+  message?: string;
+  validationErrors?: string[];
+}
+
 export interface ImageMetadata {
   id: number;
   filename: string;

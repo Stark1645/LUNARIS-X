@@ -1,4 +1,4 @@
-# SIH 2026 (SIH26166) — Enterprise Backend Architecture
+# LUNARIS-X (SIH26166) — Enterprise Backend Architecture
 
 **Backend Technology Stack**: Java 21 LTS, Spring Boot 3.3.2, Spring Data JPA, Hibernate 6, MySQL 8.0, Springdoc OpenAPI 3.  
 **Microservice Integration**: Python 3.13 FastAPI Registration ML Microservice (`http://localhost:8000`).  

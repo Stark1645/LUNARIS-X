@@ -1,4 +1,4 @@
-# SIH 2026 (SIH26166) — Frontend Architecture & UI Specification
+# LUNARIS-X (SIH26166) — Frontend Architecture & UI Specification
 
 **Frontend Technology Stack**: React 18.3.1, TypeScript 5.5, Vite 5.4, Lucide React, Axios, Vitest.  
 **Target Environment**: Desktop-First Scientific Lunar Analysis Dashboard (Port 3000).  

@@ -1,5 +1,5 @@
 """
-Smart service readiness checker for SIH 2026 (SIH26166) Launcher.
+Smart service readiness checker for LUNARIS-X (SIH26166) Launcher.
 Monitors FastAPI (port 8000), Spring Boot (port 8080), and Vite (port 3000)
 until all microservices are healthy before launching the browser.
 """
@@ -14,7 +14,7 @@ import urllib.error
 def check_url(url: str, timeout: float = 2.0) -> tuple[bool, int, dict]:
     """Check an HTTP endpoint and return (is_success, status_code, json_body)."""
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "SIH26166-HealthCheck/1.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "LUNARIS-X-HealthCheck/1.0"})
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             code = resp.getcode()
             if code == 200:

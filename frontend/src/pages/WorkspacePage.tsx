@@ -6,7 +6,7 @@ import { ComparisonViewer } from '../components/comparison/ComparisonViewer';
 import { ScientificMetricsPanel } from '../components/metrics/ScientificMetricsPanel';
 import { ImageMetadata, RegistrationRequest, RegistrationResponseDTO, JobStatus } from '../types';
 import { apiService, parseApiError } from '../services/api';
-import { AlertCircle, ArrowLeftRight, ShieldCheck, MapPin, CheckCircle2, HelpCircle } from 'lucide-react';
+import { AlertCircle, ArrowLeftRight, ShieldCheck } from 'lucide-react';
 
 export const WorkspacePage: React.FC = () => {
   const [sourceImage, setSourceImage] = useState<ImageMetadata | null>(null);
@@ -97,7 +97,7 @@ export const WorkspacePage: React.FC = () => {
             </span>
           )}
           <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-            SIH26166: Chandrayaan-2 Multi-Modal Lunar Image Correspondence and Registration
+            LUNARIS-X (SIH26166): Chandrayaan-2 Multi-Modal Lunar Image Correspondence and Registration
           </span>
         </div>
 

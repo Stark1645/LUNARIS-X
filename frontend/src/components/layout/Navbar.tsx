@@ -18,8 +18,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, health 
           <Compass size={20} />
         </div>
         <div>
-          <div className="brand-title">SIH26166 — Lunar Image Registration Engine</div>
-          <div className="brand-subtitle">Chandrayaan-2 Optical & Multi-Modal Alignment Platform</div>
+          <div className="brand-title">LUNARIS-X — Lunar Image Registration Engine</div>
+          <div className="brand-subtitle">Chandrayaan-2 Multi-Modal Alignment Platform (SIH26166)</div>
         </div>
       </div>
 

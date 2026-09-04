@@ -1,6 +1,6 @@
-# SIH 2026 (SIH26166) — Demonstration Readiness Guide & Evaluation Checklist
+# LUNARIS-X (SIH26166) — Demonstration Readiness Guide & Evaluation Checklist
 
-**Project Title**: Multi-Modal, Sun-Angle and Scale-Invariant Lunar Image Correspondence & Registration Engine  
+**Project Title**: LUNARIS-X — Multi-Modal, Sun-Angle and Scale-Invariant Lunar Image Correspondence & Registration Engine  
 **Readiness Status**: $\mathbf{READY\ FOR\ SIH\ DEMONSTRATION}$  
 **Target Jury / Stakeholders**: ISRO / Smart India Hackathon Evaluators  
 

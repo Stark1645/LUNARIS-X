@@ -187,12 +187,12 @@ export const BenchmarkExplorer: React.FC = () => {
                   </td>
                   <td className="font-mono" style={{ color: '#34d399', fontWeight: 600 }}>{exp.inlierCount}</td>
                   <td className="font-mono">{exp.inlierRatioPercent ? `${exp.inlierRatioPercent.toFixed(1)}%` : 'N/A'}</td>
-                  <td className="font-mono">{exp.rmseInliersPx !== null ? `${exp.rmseInliersPx.toFixed(2)} px` : 'N/A'}</td>
-                  <td className="font-mono" style={{ color: exp.rmseGroundTruthPx !== null && exp.rmseGroundTruthPx <= 5.0 ? '#34d399' : '#fbbf24' }}>
-                    {exp.rmseGroundTruthPx !== null ? `${exp.rmseGroundTruthPx.toFixed(2)} px` : 'N/A'}
+                  <td className="font-mono">{exp.rmseInliersPx != null ? `${exp.rmseInliersPx.toFixed(2)} px` : 'N/A'}</td>
+                  <td className="font-mono" style={{ color: exp.rmseGroundTruthPx != null && exp.rmseGroundTruthPx <= 5.0 ? '#34d399' : '#fbbf24' }}>
+                    {exp.rmseGroundTruthPx != null ? `${exp.rmseGroundTruthPx.toFixed(2)} px` : 'N/A'}
                   </td>
-                  <td className="font-mono">{exp.spatialGini !== null ? exp.spatialGini.toFixed(2) : 'N/A'}</td>
-                  <td className="font-mono">{exp.latencyMs !== null ? `${exp.latencyMs.toFixed(0)} ms` : 'N/A'}</td>
+                  <td className="font-mono">{exp.spatialGini != null ? exp.spatialGini.toFixed(2) : 'N/A'}</td>
+                  <td className="font-mono">{exp.latencyMs != null ? `${exp.latencyMs.toFixed(0)} ms` : 'N/A'}</td>
                   <td>{getStatusBadge(exp.status)}</td>
                 </tr>
               ))

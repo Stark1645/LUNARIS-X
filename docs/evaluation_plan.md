@@ -1,4 +1,4 @@
-# Scientific Evaluation Plan & Benchmark Metrics
+# LUNARIS-X (SIH26166): Scientific Evaluation Plan & Benchmark Metrics
 
 ## 1. Quantitative Evaluation Protocol
 

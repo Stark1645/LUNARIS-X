@@ -1,6 +1,7 @@
 """
-FastAPI REST Microservice for SIH26166 Lunar Image Registration Engine.
-Exposes REST endpoints for Spring Boot backend and frontend communication:
+FastAPI REST Microservice for LUNARIS-X (SIH26166) Lunar Image Registration Engine.
+Provides high-performance endpoints for registering Chandrayaan-2 images
+using SIFT baseline, RIFT baseline, and the Proposed Structural AMSR method.
 - POST /api/v1/register: End-to-end registration with provenance and quality status
 - POST /api/v1/catalog/scan: Scan local directories for PRADAN products
 - GET /api/v1/catalog/products: Query indexed PRADAN products by instrument
@@ -31,7 +32,7 @@ from src.proposed.reference_selector import ReferenceMovingSelector, SelectionDe
 
 
 app = FastAPI(
-    title="SIH26166 Lunar Image Registration ML Service",
+    title="LUNARIS-X Lunar Image Registration ML Service (SIH26166)",
     description="Python CV/ML microservice providing SIFT, RIFT, and Structural AMSR pipelines for Chandrayaan-2 PRADAN data.",
     version="2.0.0"
 )
@@ -137,7 +138,7 @@ def decode_image_bytes(file_bytes: bytes) -> np.ndarray:
 def health_check():
     return HealthResponse(
         status="UP",
-        service="SIH26166_Python_ML_Service",
+        service="LUNARIS_X_Python_ML_Service",
         version="2.0.0",
         supported_algorithms=["Proposed_Method", "SIFT_Baseline", "RIFT_Baseline"],
         implemented_algorithms=["Proposed_Method (AMSR / Structural PC)", "SIFT_Baseline", "RIFT_Baseline"],

@@ -23,7 +23,7 @@ describe('App Root Component', () => {
   it('renders the header with project title and navigation tabs', () => {
     render(<App />);
 
-    expect(screen.getByText(/SIH26166 — Lunar Image Registration Engine/i)).toBeInTheDocument();
+    expect(screen.getByText(/LUNARIS-X — Lunar Image Registration Engine/i)).toBeInTheDocument();
     expect(screen.getByText(/Registration Workspace/i)).toBeInTheDocument();
     expect(screen.getByText(/Benchmark Registry/i)).toBeInTheDocument();
     expect(screen.getByText(/System Health/i)).toBeInTheDocument();

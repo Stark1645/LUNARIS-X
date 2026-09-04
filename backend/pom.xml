@@ -14,8 +14,8 @@
     <groupId>org.sih.lunar</groupId>
     <artifactId>lunar-registration-backend</artifactId>
     <version>1.0.0</version>
-    <name>Lunar Image Registration Backend</name>
-    <description>Enterprise Spring Boot 3 Backend for SIH26166 Lunar Image Registration Engine</description>
+    <name>LUNARIS-X Lunar Image Registration Backend</name>
+    <description>Enterprise Spring Boot 3 Backend for LUNARIS-X (SIH26166) Lunar Image Registration Engine</description>
 
     <properties>
         <java.version>21</java.version>

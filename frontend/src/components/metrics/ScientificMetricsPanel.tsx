@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Compass, ShieldCheck, MapPin, CheckCircle2, AlertTriangle, XCircle, Info } from 'lucide-react';
+import { Activity, Compass, ShieldCheck, Info } from 'lucide-react';
 import { RegistrationResponseDTO } from '../../types';
 
 interface ScientificMetricsPanelProps {

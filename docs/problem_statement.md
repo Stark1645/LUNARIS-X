@@ -1,6 +1,7 @@
-# SIH26166: Problem Statement & Scientific Objectives
+# LUNARIS-X (SIH26166): Problem Statement & Scientific Objectives
 
 ## 1. Problem Statement Details
+- **Project Name**: LUNARIS-X
 - **Project ID**: SIH26166
 - **Title**: Multi-modal, Sun angle and scale invariant image correspondence using Chandrayaan-2 optical images (OHRC, TMC and IIRS)
 - **Organization**: Indian Space Research Organisation (ISRO), Department of Space
