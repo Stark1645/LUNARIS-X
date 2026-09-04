@@ -110,6 +110,7 @@ class RegistrationResponseDTO(BaseModel):
     alpha_overlay_base64: str
     checkerboard_base64: str
     difference_map_base64: str
+    panoramic_mosaic_base64: Optional[str] = None
     
     step_diagnostics: Dict[str, Any]
     provenance: Dict[str, Any]
@@ -396,6 +397,7 @@ async def register_images(
             alpha_overlay_base64=encode_image_base64(output.alpha_overlay),
             checkerboard_base64=encode_image_base64(output.checkerboard),
             difference_map_base64=encode_image_base64(output.difference_map),
+            panoramic_mosaic_base64=encode_image_base64(output.panoramic_mosaic) if getattr(output, 'panoramic_mosaic', None) is not None else None,
             step_diagnostics=output.step_diagnostics,
             provenance=prov_summary
         )

@@ -66,6 +66,9 @@ class RegistrationOutput:
     
     # Processing Log / Step Diagnostics
     step_diagnostics: Dict[str, Any]
+    panoramic_mosaic: Optional[np.ndarray] = None
+
+
 
 
 class LunarRegistrationPipeline:
@@ -142,8 +145,25 @@ class LunarRegistrationPipeline:
 
         # Multi-scale limit for ultra-large satellite strips (> 2048 px)
         max_dim = 2048
-        scale_s = min(1.0, float(max_dim) / float(max(h_src, w_src))) if max(h_src, w_src) > max_dim else 1.0
-        scale_r = min(1.0, float(max_dim) / float(max(h_ref, w_ref))) if max(h_ref, w_ref) > max_dim else 1.0
+        raw_scale_s = min(1.0, float(max_dim) / float(max(h_src, w_src))) if max(h_src, w_src) > max_dim else 1.0
+        raw_scale_r = min(1.0, float(max_dim) / float(max(h_ref, w_ref))) if max(h_ref, w_ref) > max_dim else 1.0
+
+        gsd_ratio = 1.0
+        if gsd_source_m and gsd_reference_m and gsd_source_m > 0 and gsd_reference_m > 0:
+            gsd_ratio = max(gsd_source_m / gsd_reference_m, gsd_reference_m / gsd_source_m)
+        elif abs(w_src - w_ref) / max(1.0, float(max(w_src, w_ref))) < 0.25:
+            gsd_ratio = 1.0
+
+        if gsd_ratio < 1.5:
+            common_scale = min(raw_scale_s, raw_scale_r)
+            min_dim = min(h_src, w_src, h_ref, w_ref)
+            if min_dim * common_scale < 128:
+                common_scale = min(1.0, max(common_scale, 128.0 / min_dim))
+            scale_s = common_scale
+            scale_r = common_scale
+        else:
+            scale_s = raw_scale_s
+            scale_r = raw_scale_r
 
         if scale_s < 1.0:
             src_proc = cv2.resize(src_norm, (int(round(w_src * scale_s)), int(round(h_src * scale_s))), interpolation=cv2.INTER_AREA)
@@ -245,6 +265,7 @@ class LunarRegistrationPipeline:
                 alpha_overlay=ref_proc,
                 checkerboard=ref_proc,
                 difference_map=np.zeros_like(ref_proc),
+                panoramic_mosaic=RegistrationVisualizer.draw_panoramic_mosaic(ref_norm, src_norm, None),
                 step_diagnostics=step_diag
             )
 
@@ -334,6 +355,7 @@ class LunarRegistrationPipeline:
         alpha_overlay = RegistrationVisualizer.draw_alpha_overlay(ref_proc, warped_src, alpha=0.5)
         checkerboard = RegistrationVisualizer.draw_checkerboard(ref_proc, warped_src, grid_tiles=8)
         diff_map = RegistrationVisualizer.draw_difference_map(ref_proc, warped_src)
+        panoramic_mosaic = RegistrationVisualizer.draw_panoramic_mosaic(ref_proc, src_proc, H_final)
 
         # Re-project transformation matrix and inliers to native coordinate frame
         if scale_s < 1.0 or scale_r < 1.0:
@@ -374,5 +396,6 @@ class LunarRegistrationPipeline:
             alpha_overlay=alpha_overlay,
             checkerboard=checkerboard,
             difference_map=diff_map,
+            panoramic_mosaic=panoramic_mosaic,
             step_diagnostics=step_diag
         )

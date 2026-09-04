@@ -155,6 +155,7 @@ export interface RegistrationResponseDTO {
   alphaOverlayBase64?: string;
   checkerboardBase64?: string;
   differenceMapBase64?: string;
+  panoramicMosaicBase64?: string;
   createdAt: string;
   completedAt?: string;
   dataCategory?: DataCategory;

@@ -98,8 +98,28 @@ class ProposedRegistrationPipeline:
 
         # Multi-scale limit for ultra-large satellite strips (> 2048 px)
         max_dim = 2048
-        scale_s = min(1.0, float(max_dim) / float(max(h_s, w_s))) if max(h_s, w_s) > max_dim else 1.0
-        scale_r = min(1.0, float(max_dim) / float(max(h_r, w_r))) if max(h_r, w_r) > max_dim else 1.0
+        raw_scale_s = min(1.0, float(max_dim) / float(max(h_s, w_s))) if max(h_s, w_s) > max_dim else 1.0
+        raw_scale_r = min(1.0, float(max_dim) / float(max(h_r, w_r))) if max(h_r, w_r) > max_dim else 1.0
+
+        # Physical GSD consistency check:
+        # If both images have the same or similar GSD (e.g. crop vs strip of same instrument):
+        # We must use isometric scaling (common scale) to preserve 1:1 pixel physical scale
+        gsd_ratio = 1.0
+        if gsd_source_m and gsd_reference_m and gsd_source_m > 0 and gsd_reference_m > 0:
+            gsd_ratio = max(gsd_source_m / gsd_reference_m, gsd_reference_m / gsd_source_m)
+        elif abs(w_s - w_r) / max(1.0, float(max(w_s, w_r))) < 0.25:
+            gsd_ratio = 1.0
+
+        if gsd_ratio < 1.5:
+            common_scale = min(raw_scale_s, raw_scale_r)
+            min_dim = min(h_s, w_s, h_r, w_r)
+            if min_dim * common_scale < 128:
+                common_scale = min(1.0, max(common_scale, 128.0 / min_dim))
+            scale_s = common_scale
+            scale_r = common_scale
+        else:
+            scale_s = raw_scale_s
+            scale_r = raw_scale_r
 
         if scale_s < 1.0:
             src_proc = cv2.resize(src_norm, (int(round(w_s * scale_s)), int(round(h_s * scale_s))), interpolation=cv2.INTER_AREA)
@@ -189,6 +209,27 @@ class ProposedRegistrationPipeline:
             "mean_rmse_px": geom_res.mean_rmse
         }
 
+        # Multi-orientation recovery: check 90/180/270 deg rotation if initial verification failed
+        if not geom_res.is_valid or geom_res.inlier_count < 4:
+            for rot_angle in [cv2.ROTATE_90_CLOCKWISE, cv2.ROTATE_180, cv2.ROTATE_90_COUNTERCLOCKWISE]:
+                src_rot = cv2.rotate(src_proc, rot_angle)
+                kps_rot, desc_rot = self.structural_detector.detect_and_compute(src_rot)
+                kps_r, desc_r = self.structural_detector.detect_and_compute(ref_proc)
+                m_rot = self.scale_matcher.matcher.match(kps_rot, desc_rot, kps_r, desc_r)
+                if m_rot.filtered_matches_count >= 6:
+                    g_rot = self.verifier.verify(
+                        m_rot.source_points,
+                        m_rot.reference_points,
+                        image_shape=(h_proc_r, w_proc_r),
+                        preferred_model=TransformationType.HOMOGRAPHY
+                    )
+                    if g_rot.is_valid and g_rot.inlier_count >= 4:
+                        geom_res = g_rot
+                        match_res = m_rot
+                        src_proc = src_rot
+                        h_proc_s, w_proc_s = src_proc.shape[:2]
+                        break
+
         if not geom_res.is_valid or geom_res.inlier_count < 4:
             # Handle failure gracefully
             latency = (time.time() - start_time) * 1000.0
@@ -235,6 +276,7 @@ class ProposedRegistrationPipeline:
                 alpha_overlay=ref_proc,
                 checkerboard=ref_proc,
                 difference_map=np.zeros_like(ref_proc),
+                panoramic_mosaic=RegistrationVisualizer.draw_panoramic_mosaic(ref_proc, src_proc, None),
                 step_diagnostics=step_diag
             )
 
@@ -317,6 +359,7 @@ class ProposedRegistrationPipeline:
         alpha_overlay = RegistrationVisualizer.draw_alpha_overlay(ref_proc, warped_src, alpha=0.5)
         checkerboard = RegistrationVisualizer.draw_checkerboard(ref_proc, warped_src, grid_tiles=8)
         diff_map = RegistrationVisualizer.draw_difference_map(ref_proc, warped_src)
+        panoramic_mosaic = RegistrationVisualizer.draw_panoramic_mosaic(ref_proc, src_proc, H_final)
 
         # 11. Re-project transformation matrix and inliers to native coordinate frame
         if scale_s < 1.0 or scale_r < 1.0:
@@ -357,5 +400,6 @@ class ProposedRegistrationPipeline:
             alpha_overlay=alpha_overlay,
             checkerboard=checkerboard,
             difference_map=diff_map,
+            panoramic_mosaic=panoramic_mosaic,
             step_diagnostics=step_diag
         )

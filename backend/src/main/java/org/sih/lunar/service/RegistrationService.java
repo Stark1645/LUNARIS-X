@@ -141,6 +141,7 @@ public class RegistrationService {
             if (mlResp.has("alpha_overlay_base64")) dto.setAlphaOverlayBase64(mlResp.get("alpha_overlay_base64").asText());
             if (mlResp.has("checkerboard_base64")) dto.setCheckerboardBase64(mlResp.get("checkerboard_base64").asText());
             if (mlResp.has("difference_map_base64")) dto.setDifferenceMapBase64(mlResp.get("difference_map_base64").asText());
+            if (mlResp.has("panoramic_mosaic_base64")) dto.setPanoramicMosaicBase64(mlResp.get("panoramic_mosaic_base64").asText());
 
             return dto;
 

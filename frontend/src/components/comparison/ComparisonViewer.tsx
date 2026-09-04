@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, Grid, Layers, Activity, Download, SplitSquareVertical } from 'lucide-react';
+import { Eye, Grid, Layers, Activity, Download, SplitSquareVertical, Maximize2 } from 'lucide-react';
 import { RegistrationResponseDTO } from '../../types';
 
 interface ComparisonViewerProps {
@@ -8,7 +8,7 @@ interface ComparisonViewerProps {
   referencePreviewUrl?: string;
 }
 
-type ViewMode = 'OVERLAY' | 'CHECKERBOARD' | 'DIFFERENCE' | 'MATCHES' | 'SIDE_BY_SIDE';
+type ViewMode = 'OVERLAY' | 'PANORAMIC_MOSAIC' | 'CHECKERBOARD' | 'DIFFERENCE' | 'MATCHES' | 'SIDE_BY_SIDE';
 
 export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
   result,
@@ -41,6 +41,15 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
           >
             <Layers size={14} />
             <span>Alpha Overlay</span>
+          </button>
+
+          <button
+            className={`btn ${viewMode === 'PANORAMIC_MOSAIC' ? 'btn-primary' : 'btn-secondary'}`}
+            style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}
+            onClick={() => setViewMode('PANORAMIC_MOSAIC')}
+          >
+            <Maximize2 size={14} />
+            <span>Panoramic Mosaic</span>
           </button>
 
           <button
@@ -106,6 +115,24 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
                 style={{ flex: 1 }}
               />
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Warped Src</span>
+            </div>
+          </div>
+        )}
+
+        {viewMode === 'PANORAMIC_MOSAIC' && (
+          <div style={{ textAlign: 'center' }}>
+            {result.panoramicMosaicBase64 ? (
+              <img
+                src={result.panoramicMosaicBase64}
+                alt="Expanded Panoramic Mosaic"
+                className="comparison-image"
+                style={{ maxHeight: '550px', objectFit: 'contain' }}
+              />
+            ) : (
+              <div style={{ color: 'var(--text-muted)' }}>Panoramic mosaic product not available.</div>
+            )}
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
+              Full expanded composite preserving 100% spatial extent of both Source and Reference images with seamless blending across the overlap zone.
             </div>
           </div>
         )}
@@ -206,7 +233,29 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
           Registered Source coordinate frame is mathematically aligned with Fixed Reference.
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          {result.panoramicMosaicBase64 && (
+            <button
+              className="btn btn-primary"
+              style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem' }}
+              onClick={() => downloadImage(result.panoramicMosaicBase64!, `panoramic_mosaic_job_${result.jobId}.png`)}
+            >
+              <Download size={12} />
+              <span>Export Panoramic Mosaic</span>
+            </button>
+          )}
+
+          {result.alphaOverlayBase64 && (
+            <button
+              className="btn btn-secondary"
+              style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem' }}
+              onClick={() => downloadImage(result.alphaOverlayBase64!, `fused_lunar_mosaic_job_${result.jobId}.png`)}
+            >
+              <Download size={12} />
+              <span>Export Fused Overlay</span>
+            </button>
+          )}
+
           {result.warpedImageBase64 && (
             <button
               className="btn btn-secondary"

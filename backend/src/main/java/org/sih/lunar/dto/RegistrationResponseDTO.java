@@ -25,6 +25,7 @@ public class RegistrationResponseDTO {
     private String alphaOverlayBase64;
     private String checkerboardBase64;
     private String differenceMapBase64;
+    private String panoramicMosaicBase64;
 
     private LocalDateTime createdAt;
     private LocalDateTime completedAt;
@@ -82,6 +83,9 @@ public class RegistrationResponseDTO {
 
     public String getDifferenceMapBase64() { return differenceMapBase64; }
     public void setDifferenceMapBase64(String differenceMapBase64) { this.differenceMapBase64 = differenceMapBase64; }
+
+    public String getPanoramicMosaicBase64() { return panoramicMosaicBase64; }
+    public void setPanoramicMosaicBase64(String panoramicMosaicBase64) { this.panoramicMosaicBase64 = panoramicMosaicBase64; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

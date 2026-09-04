@@ -162,3 +162,90 @@ class RegistrationVisualizer:
         # Apply colormap for visualization (e.g. Jet/Inferno)
         diff_color = cv2.applyColorMap(diff, cv2.COLORMAP_INFERNO)
         return diff_color
+
+    @staticmethod
+    def draw_panoramic_mosaic(
+        reference_image: np.ndarray,
+        source_image: np.ndarray,
+        H_matrix: Optional[np.ndarray] = None
+    ) -> np.ndarray:
+        """
+        Builds a full expanded panoramic mosaic displaying the complete spatial coverage
+        of BOTH Reference and Source images, with seamless blending across the overlap zone.
+        """
+        ref_bgr = cv2.cvtColor(reference_image, cv2.COLOR_GRAY2BGR) if len(reference_image.shape) == 2 else reference_image.copy()
+        src_bgr = cv2.cvtColor(source_image, cv2.COLOR_GRAY2BGR) if len(source_image.shape) == 2 else source_image.copy()
+
+        h_ref, w_ref = ref_bgr.shape[:2]
+        h_src, w_src = src_bgr.shape[:2]
+
+        if H_matrix is None:
+            canvas = np.zeros((max(h_ref, h_src), w_ref + w_src, 3), dtype=np.uint8)
+            canvas[:h_ref, :w_ref] = ref_bgr
+            canvas[:h_src, w_ref:w_ref + w_src] = src_bgr
+            return canvas
+
+        try:
+            # Source 4 corner points
+            src_corners = np.array([
+                [0, 0],
+                [w_src, 0],
+                [w_src, h_src],
+                [0, h_src]
+            ], dtype=np.float32).reshape(-1, 1, 2)
+
+            warped_corners = cv2.perspectiveTransform(src_corners, H_matrix)
+
+            ref_corners = np.array([
+                [0, 0],
+                [w_ref, 0],
+                [w_ref, h_ref],
+                [0, h_ref]
+            ], dtype=np.float32).reshape(-1, 1, 2)
+
+            all_corners = np.concatenate((ref_corners, warped_corners), axis=0)
+
+            x_min = float(np.min(all_corners[:, 0, 0]))
+            y_min = float(np.min(all_corners[:, 0, 1]))
+            x_max = float(np.max(all_corners[:, 0, 0]))
+            y_max = float(np.max(all_corners[:, 0, 1]))
+
+            # Safeguard canvas bounds to max 3500 px
+            max_dim = 3500
+            canvas_w = int(min(max_dim, max(w_ref, round(x_max - x_min))))
+            canvas_h = int(min(max_dim, max(h_ref, round(y_max - y_min))))
+
+            if canvas_w <= 0 or canvas_h <= 0 or canvas_w > max_dim or canvas_h > max_dim:
+                canvas_w = max(w_ref, w_src)
+                canvas_h = max(h_ref, h_src)
+                x_min, y_min = 0.0, 0.0
+
+            # Translation matrix to shift union bounding box to (0, 0)
+            T = np.array([
+                [1.0, 0.0, -x_min],
+                [0.0, 1.0, -y_min],
+                [0.0, 0.0, 1.0]
+            ], dtype=np.float64)
+
+            warped_src_canvas = cv2.warpPerspective(src_bgr, T @ H_matrix, (canvas_w, canvas_h))
+            warped_ref_canvas = cv2.warpPerspective(ref_bgr, T, (canvas_w, canvas_h))
+
+            mask_src = (cv2.cvtColor(warped_src_canvas, cv2.COLOR_BGR2GRAY) > 0)
+            mask_ref = (cv2.cvtColor(warped_ref_canvas, cv2.COLOR_BGR2GRAY) > 0)
+
+            mosaic = np.zeros((canvas_h, canvas_w, 3), dtype=np.uint8)
+            mosaic[mask_ref & ~mask_src] = warped_ref_canvas[mask_ref & ~mask_src]
+            mosaic[mask_src & ~mask_ref] = warped_src_canvas[mask_src & ~mask_ref]
+
+            overlap = mask_src & mask_ref
+            if np.any(overlap):
+                blended = cv2.addWeighted(warped_ref_canvas, 0.5, warped_src_canvas, 0.5, 0.0)
+                mosaic[overlap] = blended[overlap]
+
+            return mosaic
+        except Exception:
+            # Fallback to side-by-side if extreme perspective singularity occurs
+            canvas = np.zeros((max(h_ref, h_src), w_ref + w_src, 3), dtype=np.uint8)
+            canvas[:h_ref, :w_ref] = ref_bgr
+            canvas[:h_src, w_ref:w_ref + w_src] = src_bgr
+            return canvas
