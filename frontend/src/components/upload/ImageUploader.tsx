@@ -76,6 +76,14 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       const gsdNum = detected.gsd ? parseFloat(detected.gsd) : undefined;
       const meta = await apiService.uploadImage(file, detected.sensor, detected.mission, gsdNum, detected.category);
       
+      // Explicitly sync with detected attributes to prevent stale database cache from displaying old sensor labels
+      meta.sensorName = detected.sensor;
+      meta.missionName = detected.mission;
+      if (gsdNum !== undefined) {
+        meta.gsdMeters = gsdNum;
+      }
+      meta.dataCategory = detected.category;
+
       // Attach local preview URL for instant rendering
       meta.previewUrl = URL.createObjectURL(file);
       onImageUploaded(meta);
