@@ -137,6 +137,7 @@ public class RegistrationService {
                 dto.setWarpedImageBase64(mlResp.get("warped_image_base64").asText());
             }
 
+            if (mlResp.has("reference_image_base64")) dto.setReferenceImageBase64(mlResp.get("reference_image_base64").asText());
             if (mlResp.has("match_vis_base64")) dto.setMatchVisBase64(mlResp.get("match_vis_base64").asText());
             if (mlResp.has("alpha_overlay_base64")) dto.setAlphaOverlayBase64(mlResp.get("alpha_overlay_base64").asText());
             if (mlResp.has("checkerboard_base64")) dto.setCheckerboardBase64(mlResp.get("checkerboard_base64").asText());

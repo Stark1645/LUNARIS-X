@@ -21,6 +21,7 @@ public class RegistrationResponseDTO {
     private List<MatchPointDTO> matchPoints;
 
     private String warpedImageBase64;
+    private String referenceImageBase64;
     private String matchVisBase64;
     private String alphaOverlayBase64;
     private String checkerboardBase64;
@@ -71,6 +72,9 @@ public class RegistrationResponseDTO {
 
     public String getWarpedImageBase64() { return warpedImageBase64; }
     public void setWarpedImageBase64(String warpedImageBase64) { this.warpedImageBase64 = warpedImageBase64; }
+
+    public String getReferenceImageBase64() { return referenceImageBase64; }
+    public void setReferenceImageBase64(String referenceImageBase64) { this.referenceImageBase64 = referenceImageBase64; }
 
     public String getMatchVisBase64() { return matchVisBase64; }
     public void setMatchVisBase64(String matchVisBase64) { this.matchVisBase64 = matchVisBase64; }

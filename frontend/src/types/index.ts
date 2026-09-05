@@ -151,6 +151,7 @@ export interface RegistrationResponseDTO {
   metrics: MetricsDTO;
   matchPoints?: MatchPointDTO[];
   warpedImageBase64?: string;
+  referenceImageBase64?: string;
   matchVisBase64?: string;
   alphaOverlayBase64?: string;
   checkerboardBase64?: string;

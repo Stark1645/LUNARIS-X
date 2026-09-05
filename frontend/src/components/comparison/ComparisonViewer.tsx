@@ -94,7 +94,48 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
       <div className="viewer-canvas-wrapper" style={{ padding: '1rem' }}>
         {viewMode === 'OVERLAY' && (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-            {result.alphaOverlayBase64 ? (
+            {(result.referenceImageBase64 || referencePreviewUrl) && result.warpedImageBase64 ? (
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'inline-block',
+                  maxWidth: '100%',
+                  borderRadius: 'var(--radius-sm)',
+                  overflow: 'hidden',
+                  background: '#000',
+                }}
+              >
+                {/* Base Layer: Fixed Reference */}
+                <img
+                  src={result.referenceImageBase64 || referencePreviewUrl}
+                  alt="Fixed Reference"
+                  className="comparison-image"
+                  style={{
+                    display: 'block',
+                    maxHeight: '520px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                  }}
+                />
+                {/* Top Layer: Warped Source with dynamic opacity */}
+                <img
+                  src={result.warpedImageBase64}
+                  alt="Warped Source"
+                  className="comparison-image"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    opacity: opacity,
+                    pointerEvents: 'none',
+                    transition: 'opacity 0.05s ease-out',
+                  }}
+                />
+              </div>
+            ) : result.alphaOverlayBase64 ? (
               <img
                 src={result.alphaOverlayBase64}
                 alt="Alpha Blended Composite"
@@ -103,18 +144,26 @@ export const ComparisonViewer: React.FC<ComparisonViewerProps> = ({
             ) : (
               <div style={{ color: 'var(--text-muted)' }}>Overlay product not returned by engine.</div>
             )}
-            <div style={{ width: '80%', maxWidth: '400px', marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Fixed Ref</span>
+
+            <div style={{ width: '80%', maxWidth: '460px', marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-cyan)' }}>
+                Fixed Ref ({Math.round((1 - opacity) * 100)}%)
+              </span>
               <input
                 type="range"
                 min="0"
                 max="1"
-                step="0.05"
+                step="0.02"
                 value={opacity}
                 onChange={(e) => setOpacity(parseFloat(e.target.value))}
-                style={{ flex: 1 }}
+                style={{ flex: 1, cursor: 'pointer' }}
               />
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Warped Src</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#34d399' }}>
+                Warped Src ({Math.round(opacity * 100)}%)
+              </span>
+            </div>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
+              Slide left/right to cross-fade between Fixed Reference and Warped Source to visually inspect sub-pixel alignment.
             </div>
           </div>
         )}

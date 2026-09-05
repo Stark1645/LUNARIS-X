@@ -106,6 +106,7 @@ class RegistrationResponseDTO(BaseModel):
     
     # Base64 Rendered Diagnostics
     warped_source_base64: str
+    reference_image_base64: Optional[str] = None
     match_vis_base64: str
     alpha_overlay_base64: str
     checkerboard_base64: str
@@ -393,6 +394,7 @@ async def register_images(
             is_synthetic=is_synthetic,
             match_points=match_dtos,
             warped_source_base64=encode_image_base64(output.warped_source_image),
+            reference_image_base64=encode_image_base64(output.reference_image),
             match_vis_base64=encode_image_base64(output.match_visualization),
             alpha_overlay_base64=encode_image_base64(output.alpha_overlay),
             checkerboard_base64=encode_image_base64(output.checkerboard),
