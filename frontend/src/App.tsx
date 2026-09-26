@@ -44,14 +44,33 @@ export const App: React.FC = () => {
       <footer
         style={{
           borderTop: '1px solid var(--border-subtle)',
-          padding: '1rem 1.5rem',
+          padding: '1.25rem 1.75rem',
           textAlign: 'center',
           fontSize: '0.75rem',
           color: 'var(--text-muted)',
-          background: 'var(--bg-surface-1)',
+          background: 'rgba(7, 12, 22, 0.95)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '0.4rem',
         }}
       >
-        LUNARIS-X (SIH26166) — ISRO Chandrayaan-2 Multi-Modal Sub-Pixel Image Registration Engine.
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span style={{ color: 'var(--accent-isro-saffron)', fontWeight: 700, fontFamily: 'var(--font-display)' }}>
+            ISRO // ISSDC CH-2 MISSION CONTROL
+          </span>
+          <span>•</span>
+          <span style={{ color: 'var(--text-secondary)' }}>
+            LUNARIS-X (SIH26166) Sub-Pixel Multi-Modal Lunar Image Registration Engine
+          </span>
+          <span>•</span>
+          <span style={{ color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>
+            NASA/ISRO PDS4 COMPLIANT
+          </span>
+        </div>
+        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+          Indian Space Research Organisation (ISRO) • Department of Space, Government of India • Developed for Smart India Hackathon
+        </div>
       </footer>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sliders, Play, Cpu, Target } from 'lucide-react';
+import { Sliders, Play, Cpu, Target, Loader2 } from 'lucide-react';
 import { AlgorithmType, TransformationModelType, RegistrationRequest } from '../../types';
 
 interface ConfigPanelProps {
@@ -18,21 +18,26 @@ export const ConfigPanel: React.FC<ConfigPanelProps> = ({
   canExecute,
 }) => {
   return (
-    <div className="card">
-      <div className="card-header">
+    <div className="card" style={{ padding: '1.25rem' }}>
+      <div className="card-header" style={{ marginBottom: '1rem', paddingBottom: '0.65rem' }}>
         <div className="card-title">
-          <Sliders size={18} color="var(--accent-cyan)" />
-          <span>Registration Configuration</span>
+          <Sliders size={16} style={{ color: 'var(--accent-blue)' }} />
+          <span>Alignment Parameters & Execution</span>
         </div>
-        <span className="badge badge-category">Spring Boot / ML Engine API</span>
+        <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+          Configure transformation model, feature ratio, and sub-pixel thresholds
+        </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
-        {/* Algorithm Selection */}
-        <div className="form-group">
-          <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <Cpu size={14} />
-            <span>Algorithm Backend</span>
+      {/* Main Parameters Horizontal Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '1rem', alignItems: 'end' }}>
+        {/* Col 1: Algorithm */}
+        <div className="form-group" style={{ marginBottom: 0 }}>
+          <label className="form-label">
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <Cpu size={13} />
+              <span>Algorithm Pipeline</span>
+            </span>
           </label>
           <select
             className="form-select"
@@ -40,22 +45,19 @@ export const ConfigPanel: React.FC<ConfigPanelProps> = ({
             onChange={(e) => setConfig({ ...config, algorithm: e.target.value as AlgorithmType })}
             disabled={isExecuting}
           >
-            <option value="Proposed_Method">Proposed Method (AMSR - Adaptive Multi-Scale)</option>
-            <option value="SIFT_Baseline">SIFT Baseline (Classical DoG + Gradients)</option>
-            <option value="RIFT_Baseline">RIFT Baseline (Phase Congruency + MIM)</option>
+            <option value="Proposed_Method">Proposed Method (AMSR)</option>
+            <option value="SIFT_Baseline">SIFT Baseline (Scale-Space DoG)</option>
+            <option value="RIFT_Baseline">RIFT Baseline (Phase Congruency)</option>
           </select>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
-            {config.algorithm === 'Proposed_Method' && 'Adaptive Scale Bridge + Shadow-Boundary Suppression + Sub-pixel Refinement.'}
-            {config.algorithm === 'SIFT_Baseline' && 'Standard Scale-space DoG extrema. Degrades under shadow reversals.'}
-            {config.algorithm === 'RIFT_Baseline' && 'Log-Gabor structural energy. Fails under >4x scale disparity without pyramid.'}
-          </div>
         </div>
 
-        {/* Transformation Model */}
-        <div className="form-group">
-          <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <Target size={14} />
-            <span>Target Geometry Model</span>
+        {/* Col 2: Geometry Model */}
+        <div className="form-group" style={{ marginBottom: 0 }}>
+          <label className="form-label">
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <Target size={13} />
+              <span>Geometry Model</span>
+            </span>
           </label>
           <select
             className="form-select"
@@ -63,98 +65,109 @@ export const ConfigPanel: React.FC<ConfigPanelProps> = ({
             onChange={(e) => setConfig({ ...config, transformationModel: e.target.value as TransformationModelType })}
             disabled={isExecuting}
           >
-            <option value="HOMOGRAPHY">Homography (8-DOF Projective Planar)</option>
-            <option value="AFFINE">Affine (6-DOF Translation, Rotation, Scale, Shear)</option>
-            <option value="SIMILARITY">Similarity (4-DOF Translation, Rotation, Scale)</option>
-            <option value="TRANSLATION">Translation (2-DOF Translation Only)</option>
+            <option value="HOMOGRAPHY">Homography (8-DOF Projective)</option>
+            <option value="AFFINE">Affine (6-DOF Affine)</option>
+            <option value="SIMILARITY">Similarity (4-DOF Scale & Rotate)</option>
+            <option value="TRANSLATION">Translation (2-DOF Translation)</option>
           </select>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
-            Dynamic model selector will automatically stabilize minimal sample sets.
-          </div>
         </div>
 
-        {/* Matching Ratio Threshold */}
-        <div className="form-group">
+        {/* Col 3: Lowe's Ratio */}
+        <div className="form-group" style={{ marginBottom: 0 }}>
           <label className="form-label">
-            Lowe's Ratio: <span style={{ color: '#fff', fontFamily: 'var(--font-mono)' }}>{config.ratioThreshold?.toFixed(2)}</span>
+            <span>Lowe's Ratio</span>
+            <span className="font-mono">{config.ratioThreshold?.toFixed(2)}</span>
           </label>
           <input
             type="range"
             min="0.50"
             max="0.95"
             step="0.05"
-            className="form-input"
-            style={{ padding: 0 }}
             value={config.ratioThreshold}
             onChange={(e) => setConfig({ ...config, ratioThreshold: parseFloat(e.target.value) })}
             disabled={isExecuting}
+            style={{ width: '100%', cursor: 'pointer' }}
           />
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
-            Default 0.80 for bidirectional mutual consistency.
-          </div>
         </div>
 
-        {/* RANSAC Inlier Threshold */}
-        <div className="form-group">
+        {/* Col 4: RANSAC */}
+        <div className="form-group" style={{ marginBottom: 0 }}>
           <label className="form-label">
-            RANSAC Threshold: <span style={{ color: '#fff', fontFamily: 'var(--font-mono)' }}>{config.ransacThreshold?.toFixed(1)} px</span>
+            <span>RANSAC Inlier Tolerance</span>
+            <span className="font-mono">{config.ransacThreshold?.toFixed(1)} px</span>
           </label>
           <input
             type="range"
             min="1.0"
             max="10.0"
             step="0.5"
-            className="form-input"
-            style={{ padding: 0 }}
             value={config.ransacThreshold}
             onChange={(e) => setConfig({ ...config, ransacThreshold: parseFloat(e.target.value) })}
             disabled={isExecuting}
+            style={{ width: '100%', cursor: 'pointer' }}
           />
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
-            Maximum reprojection tolerance for inlier consensus.
-          </div>
         </div>
       </div>
 
-      {/* Toggles & Execution Action */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)', flexWrap: 'wrap', gap: '1rem' }}>
-        <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.82rem' }}>
+      {/* Row 2: Toggles on left + Prominent Run Registration Button on right */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop: '1.1rem',
+          paddingTop: '0.85rem',
+          borderTop: '1px solid var(--border-subtle)',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: 'pointer', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
             <input
               type="checkbox"
               checked={config.enableSubpixel}
               onChange={(e) => setConfig({ ...config, enableSubpixel: e.target.checked })}
               disabled={isExecuting}
+              style={{ accentColor: 'var(--accent-blue)' }}
             />
-            <span>2D Parabolic Hessian Sub-Pixel Refinement</span>
+            <span>Sub-pixel Hessian Parabolic Refinement</span>
           </label>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.82rem' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', cursor: 'pointer', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
             <input
               type="checkbox"
               checked={config.enableSpatialFilter}
               onChange={(e) => setConfig({ ...config, enableSpatialFilter: e.target.checked })}
               disabled={isExecuting}
+              style={{ accentColor: 'var(--accent-blue)' }}
             />
             <span>Spatial Gini (G_k) Dispersion Constraint</span>
           </label>
         </div>
 
+        {/* Primary Action Button */}
         <button
           className="btn btn-primary"
           onClick={onExecute}
           disabled={!canExecute || isExecuting}
-          style={{ minWidth: '220px' }}
+          style={{
+            padding: '0.65rem 1.75rem',
+            fontSize: '0.88rem',
+            fontWeight: 600,
+            borderRadius: 'var(--radius-sm)',
+            minWidth: '200px',
+          }}
         >
           {isExecuting ? (
             <>
-              <div className="badge badge-processing" style={{ padding: '0.1rem 0.4rem' }}>Running</div>
-              <span>Processing ML Pipeline...</span>
+              <Loader2 size={16} className="spin" />
+              <span>Aligning Planetary Frames...</span>
             </>
           ) : (
             <>
-              <Play size={16} />
-              <span>Execute Registration</span>
+              <Play size={16} fill="currentColor" />
+              <span>Run Registration</span>
             </>
           )}
         </button>

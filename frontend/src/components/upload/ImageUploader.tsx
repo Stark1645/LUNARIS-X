@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { Upload, CheckCircle, AlertCircle, Hash } from 'lucide-react';
+import { Upload, CheckCircle2, AlertCircle, Hash, RefreshCw } from 'lucide-react';
 import { ImageMetadata, DataCategory } from '../../types';
 import { apiService, parseApiError } from '../../services/api';
 
 interface ImageUploaderProps {
   role: 'SOURCE' | 'REFERENCE';
   label?: string;
-  subLabel: string;
+  subLabel?: string;
   image: ImageMetadata | null;
   onImageUploaded: (metadata: ImageMetadata) => void;
   disabled?: boolean;
@@ -14,7 +14,6 @@ interface ImageUploaderProps {
 
 export const ImageUploader: React.FC<ImageUploaderProps> = ({
   role,
-  subLabel,
   image,
   onImageUploaded,
   disabled = false,
@@ -24,7 +23,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [sensorName, setSensorName] = useState<string>(role === 'SOURCE' ? 'TMC-2' : 'OHRC');
   const [gsdMeters, setGsdMeters] = useState<string>(role === 'SOURCE' ? '5.0' : '0.25');
-  const [dataCategory, setDataCategory] = useState<DataCategory>('SYNTHETIC_BENCHMARK');
 
   const detectMetadataFromFilename = (filename: string) => {
     const lower = filename.toLowerCase();
@@ -71,12 +69,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       const detected = detectMetadataFromFilename(file.name);
       setSensorName(detected.sensor);
       setGsdMeters(detected.gsd);
-      setDataCategory(detected.category);
 
       const gsdNum = detected.gsd ? parseFloat(detected.gsd) : undefined;
       const meta = await apiService.uploadImage(file, detected.sensor, detected.mission, gsdNum, detected.category);
-      
-      // Explicitly sync with detected attributes to prevent stale database cache from displaying old sensor labels
+
       meta.sensorName = detected.sensor;
       meta.missionName = detected.mission;
       if (gsdNum !== undefined) {
@@ -84,7 +80,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       }
       meta.dataCategory = detected.category;
 
-      // Attach local preview URL for instant rendering
       meta.previewUrl = URL.createObjectURL(file);
       onImageUploaded(meta);
     } catch (err) {
@@ -94,38 +89,35 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     }
   };
 
+  const roleTitle = role === 'SOURCE' ? 'Moving Source' : 'Fixed Reference';
+
   return (
-    <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div className="card-header">
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span
-              className="badge"
-              style={{
-                background: role === 'SOURCE' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(168, 85, 247, 0.15)',
-                color: role === 'SOURCE' ? '#38bdf8' : '#c084fc',
-                borderColor: role === 'SOURCE' ? 'rgba(56, 189, 248, 0.4)' : 'rgba(168, 85, 247, 0.4)',
-              }}
-            >
-              {role === 'SOURCE' ? 'SOURCE (MOVING IMAGE)' : 'REFERENCE (FIXED IMAGE)'}
-            </span>
-          </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>{subLabel}</div>
+    <div className="card" style={{ padding: '1rem', height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+          <span style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+            {roleTitle}
+          </span>
+          <span className="badge badge-neutral" style={{ fontSize: '0.66rem' }}>
+            {role === 'SOURCE' ? 'TO BE WARPED' : 'BASE TARGET'}
+          </span>
         </div>
+
         {image && (
-          <span className="badge badge-success">
-            <CheckCircle size={12} />
-            <span>Ready (ID: {image.id})</span>
+          <span className="badge badge-success" style={{ fontSize: '0.68rem' }}>
+            <CheckCircle2 size={11} />
+            <span>Loaded</span>
           </span>
         )}
       </div>
 
       {!image ? (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <div
             className="dropzone"
             onClick={() => !disabled && fileInputRef.current?.click()}
-            style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+            style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '140px' }}
           >
             <input
               type="file"
@@ -135,109 +127,97 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
               accept=".png,.jpg,.jpeg,.tif,.tiff,.raw"
               disabled={disabled || isUploading}
             />
-            <Upload size={36} color="var(--accent-cyan)" style={{ marginBottom: '0.75rem' }} />
-            <div style={{ fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.25rem' }}>
-              {isUploading ? 'Uploading & Computing Checksum...' : 'Select or Drop Lunar Image'}
+            <Upload size={24} style={{ color: 'var(--accent-blue)', marginBottom: '0.5rem' }} />
+            <div style={{ fontWeight: 600, fontSize: '0.82rem', marginBottom: '0.2rem' }}>
+              {isUploading ? 'Uploading...' : `Upload ${roleTitle}`}
             </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              Supports PNG, GeoTIFF, TIFF, RAW (Max 100MB)
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+              PNG, TIFF, GeoTIFF, RAW
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label className="form-label">Sensor Payload</label>
+              <label className="form-label" style={{ fontSize: '0.7rem' }}>Sensor</label>
               <select
                 className="form-select"
+                style={{ padding: '0.35rem 0.6rem', fontSize: '0.78rem' }}
                 value={sensorName}
                 onChange={(e) => setSensorName(e.target.value)}
                 disabled={disabled || isUploading}
               >
-                <option value="TMC-2">TMC-2 (5m Stereo)</option>
-                <option value="OHRC">OHRC (0.25m High-Res)</option>
-                <option value="IIRS">IIRS (SWIR Hyperspectral)</option>
+                <option value="TMC-2">TMC-2 (5m)</option>
+                <option value="OHRC">OHRC (0.25m)</option>
+                <option value="IIRS">IIRS (SWIR)</option>
                 <option value="LRO_NAC">LRO NAC (0.5m)</option>
-                <option value="SYNTHETIC">Synthetic Surface Simulator</option>
               </select>
             </div>
 
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label className="form-label">Ground Sampling (m)</label>
+              <label className="form-label" style={{ fontSize: '0.7rem' }}>GSD (m)</label>
               <input
                 type="number"
                 step="0.01"
                 className="form-input"
+                style={{ padding: '0.35rem 0.6rem', fontSize: '0.78rem' }}
                 value={gsdMeters}
                 onChange={(e) => setGsdMeters(e.target.value)}
-                placeholder="e.g. 5.0"
+                placeholder="5.0"
                 disabled={disabled || isUploading}
               />
             </div>
           </div>
 
-          <div className="form-group" style={{ marginBottom: 0 }}>
-            <label className="form-label">Data Provenance Category</label>
-            <select
-              className="form-select"
-              value={dataCategory}
-              onChange={(e) => setDataCategory(e.target.value as DataCategory)}
-              disabled={disabled || isUploading}
-            >
-              <option value="SYNTHETIC_BENCHMARK">SYNTHETIC_BENCHMARK (Controlled DEM Test)</option>
-              <option value="AUTHENTIC_CH2_PRADAN">AUTHENTIC_CH2_PRADAN (ISRO Orbital Data)</option>
-            </select>
-          </div>
-
           {errorMsg && (
-            <div style={{ color: 'var(--accent-rose)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <AlertCircle size={14} />
+            <div style={{ color: 'var(--accent-rose)', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+              <AlertCircle size={13} />
               <span>{errorMsg}</span>
             </div>
           )}
         </div>
       ) : (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div style={{ textAlign: 'center', background: '#000', borderRadius: 'var(--radius-md)', padding: '0.5rem' }}>
-            {image.previewUrl ? (
-              <img src={image.previewUrl} alt={image.filename} className="dropzone-preview" />
-            ) : (
-              <div style={{ padding: '2rem', color: 'var(--text-muted)' }}>Image Uploaded (ID: {image.id})</div>
-            )}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ textAlign: 'center', background: '#000', borderRadius: 'var(--radius-sm)', padding: '0.35rem', overflow: 'hidden' }}>
+            <img src={image.previewUrl} alt={image.filename} className="dropzone-preview" style={{ maxHeight: '140px' }} />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.78rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', fontSize: '0.75rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
-              <span>Filename:</span>
-              <span style={{ color: '#fff', fontWeight: 600 }}>{image.filename}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
-              <span>Sensor / Mission:</span>
-              <span style={{ color: '#fff' }}>{image.sensorName} ({image.missionName})</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
-              <span>GSD:</span>
-              <span style={{ color: '#fff' }}>{image.gsdMeters ? `${image.gsdMeters} m/px` : 'N/A'}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
-              <span>Category:</span>
-              <span className="badge badge-category">{image.dataCategory}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--text-muted)', fontSize: '0.7rem' }}>
-              <Hash size={12} />
-              <span className="font-mono" title={image.sha256Checksum}>
-                SHA-256: {image.sha256Checksum.substring(0, 16)}...
+              <span>File:</span>
+              <span style={{ color: 'var(--text-primary)', fontWeight: 500, maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={image.filename}>
+                {image.filename}
               </span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+              <span>Sensor:</span>
+              <span style={{ color: 'var(--text-primary)' }}>{image.sensorName}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+              <span>Resolution:</span>
+              <span style={{ color: 'var(--text-primary)' }}>{image.gsdMeters ? `${image.gsdMeters} m/px` : 'N/A'}</span>
+            </div>
+            {image.width && image.height && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+                <span>Dimensions:</span>
+                <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-primary)' }}>
+                  {image.width} × {image.height}
+                </span>
+              </div>
+            )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-dim)', fontSize: '0.68rem', marginTop: '0.15rem' }}>
+              <Hash size={11} />
+              <span className="font-mono">{image.sha256Checksum.substring(0, 16)}...</span>
             </div>
           </div>
 
           <button
             className="btn btn-secondary"
             onClick={() => fileInputRef.current?.click()}
-            style={{ marginTop: 'auto' }}
+            style={{ marginTop: 'auto', padding: '0.35rem 0.75rem', fontSize: '0.74rem' }}
             disabled={disabled}
           >
-            <Upload size={14} />
-            <span>Replace Image</span>
+            <RefreshCw size={12} />
+            <span>Change Image</span>
           </button>
           <input
             type="file"

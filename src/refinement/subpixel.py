@@ -79,39 +79,40 @@ class SubPixelRefiner:
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(corr_map)
             pk_x, pk_y = max_loc
 
-            # Check if 3x3 neighborhood around peak exists
-            if (1 <= pk_x < corr_map.shape[1] - 1 and 1 <= pk_y < corr_map.shape[0] - 1):
-                # 3x3 correlation patch around integer peak
-                patch = corr_map[pk_y - 1:pk_y + 2, pk_x - 1:pk_x + 2].astype(np.float64)
+            # Only accept peaks with reasonable correlation and close to center (preventing false jumps)
+            if max_val >= 0.35 and abs(pk_x - s) <= 1 and abs(pk_y - s) <= 1:
+                if (1 <= pk_x < corr_map.shape[1] - 1 and 1 <= pk_y < corr_map.shape[0] - 1):
+                    # 3x3 correlation patch around integer peak
+                    patch = corr_map[pk_y - 1:pk_y + 2, pk_x - 1:pk_x + 2].astype(np.float64)
 
-                # Analytical gradients and Hessian on 3x3 grid
-                # g = [dC/dx, dC/dy]
-                gx = (patch[1, 2] - patch[1, 0]) / 2.0
-                gy = (patch[2, 1] - patch[0, 1]) / 2.0
+                    # Analytical gradients and Hessian on 3x3 grid
+                    gx = (patch[1, 2] - patch[1, 0]) / 2.0
+                    gy = (patch[2, 1] - patch[0, 1]) / 2.0
 
-                # Hessian H = [[d2C/dx2, d2C/dxdy], [d2C/dxdy, d2C/dy2]]
-                hxx = patch[1, 2] - 2.0 * patch[1, 1] + patch[1, 0]
-                hyy = patch[2, 1] - 2.0 * patch[1, 1] + patch[0, 1]
-                hxy = (patch[2, 2] - patch[2, 0] - patch[0, 2] + patch[0, 0]) / 4.0
+                    # Hessian H = [[d2C/dx2, d2C/dxdy], [d2C/dxdy, d2C/dy2]]
+                    hxx = patch[1, 2] - 2.0 * patch[1, 1] + patch[1, 0]
+                    hyy = patch[2, 1] - 2.0 * patch[1, 1] + patch[0, 1]
+                    hxy = (patch[2, 2] - patch[2, 0] - patch[0, 2] + patch[0, 0]) / 4.0
 
-                det_h = hxx * hyy - hxy ** 2
+                    det_h = hxx * hyy - hxy ** 2
 
-                # Valid peak must be concave (negative eigenvalues)
-                if abs(det_h) > 1e-6 and hxx < 0 and hyy < 0:
-                    # delta = - H^-1 * g
-                    dx_sub = - (hyy * gx - hxy * gy) / det_h
-                    dy_sub = - (hxx * gy - hxy * gx) / det_h
+                    # Valid peak must be concave (negative eigenvalues)
+                    if abs(det_h) > 1e-6 and hxx < 0 and hyy < 0:
+                        # delta = - H^-1 * g
+                        dx_sub = - (hyy * gx - hxy * gy) / det_h
+                        dy_sub = - (hxx * gy - hxy * gx) / det_h
 
-                    if abs(dx_sub) <= self.max_displacement and abs(dy_sub) <= self.max_displacement:
-                        # Offset relative to initial reference coordinate
-                        dx_total = (pk_x - s) + dx_sub
-                        dy_total = (pk_y - s) + dy_sub
+                        if abs(dx_sub) <= self.max_displacement and abs(dy_sub) <= self.max_displacement:
+                            # Sub-pixel displacement relative to original continuous float coordinate
+                            dx_total = float((pk_x - s) + dx_sub)
+                            dy_total = float((pk_y - s) + dy_sub)
 
-                        refined_ref[i, 0] = xr + dx_total
-                        refined_ref[i, 1] = yr + dy_total
-                        displacements[i, 0] = float(dx_total)
-                        displacements[i, 1] = float(dy_total)
-                        success_count += 1
+                            if abs(dx_total) <= 1.0 and abs(dy_total) <= 1.0:
+                                refined_ref[i, 0] = ref_points[i, 0] + dx_total
+                                refined_ref[i, 1] = ref_points[i, 1] + dy_total
+                                displacements[i, 0] = dx_total
+                                displacements[i, 1] = dy_total
+                                success_count += 1
 
         disp_mags = np.sqrt(np.sum(displacements ** 2, axis=1))
         stats = {

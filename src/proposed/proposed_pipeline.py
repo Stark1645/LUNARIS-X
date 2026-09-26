@@ -324,7 +324,20 @@ class ProposedRegistrationPipeline:
                 inliers_src, refined_ref, image_shape=(h_proc_s, w_proc_s), force_model=model_type
             )
             if H_refined is not None:
-                H_final = H_refined
+                # Photogrammetric safeguard: ensure refined homography does not diverge
+                pts_h = np.hstack([inliers_src, np.ones((len(inliers_src), 1), dtype=np.float64)])
+                pred_orig = (H_final @ pts_h.T).T
+                pred_orig = pred_orig[:, :2] / np.maximum(np.abs(pred_orig[:, 2:3]), 1e-10)
+                rmse_orig = float(np.sqrt(np.mean(np.sum((inliers_ref - pred_orig) ** 2, axis=1))))
+
+                pred_ref = (H_refined @ pts_h.T).T
+                pred_ref = pred_ref[:, :2] / np.maximum(np.abs(pred_ref[:, 2:3]), 1e-10)
+                rmse_ref = float(np.sqrt(np.mean(np.sum((refined_ref - pred_ref) ** 2, axis=1))))
+
+                if rmse_ref <= rmse_orig * 1.05:
+                    H_final = H_refined
+                else:
+                    refined_ref = inliers_ref
 
         # 8. Backward Image Warping at working scale
         warped_src = TransformationEstimator.warp_source_to_reference(

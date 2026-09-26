@@ -181,13 +181,13 @@ export interface ExperimentDTO {
   algorithm: string;
   configurationName?: string;
   dataCategory: DataCategory;
-  scaleRatio?: number;
-  deltaSunAzimuthDeg?: number;
+  scaleRatio?: number | null;
+  deltaSunAzimuthDeg?: number | null;
   inlierCount: number;
   inlierRatioPercent: number;
-  rmseInliersPx?: number;
-  rmseGroundTruthPx?: number;
-  spatialGini?: number;
+  rmseInliersPx?: number | null;
+  rmseGroundTruthPx?: number | null;
+  spatialGini?: number | null;
   latencyMs: number;
   status: string;
   executedAt: string;

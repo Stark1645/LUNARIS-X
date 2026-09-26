@@ -113,6 +113,7 @@ public class RegistrationService {
             job = jobRepository.save(job);
 
             // Persist match points if returned
+            List<MatchPointDTO> matchPointDTOs = new ArrayList<>();
             if (mlResp.has("match_points") && mlResp.get("match_points").isArray()) {
                 List<MatchPointEntity> pointEntities = new ArrayList<>();
                 for (JsonNode ptNode : mlResp.get("match_points")) {
@@ -123,12 +124,14 @@ public class RegistrationService {
                     boolean isInlier = ptNode.has("is_inlier") && ptNode.get("is_inlier").asBoolean();
 
                     pointEntities.add(new MatchPointEntity(job, srcX, srcY, refX, refY, isInlier));
+                    matchPointDTOs.add(new MatchPointDTO(srcX, srcY, refX, refY, isInlier));
                 }
                 matchPointRepository.saveAll(pointEntities);
             }
 
             // Construct DTO
             RegistrationResponseDTO dto = mapToResponseDTO(job);
+            dto.setMatchPoints(matchPointDTOs);
             
             // Handle image visual products
             if (mlResp.has("warped_source_base64")) {
@@ -212,6 +215,12 @@ public class RegistrationService {
             mDto.setLatencyMs(m.getLatencyMs());
             mDto.setDataCategory(m.getDataCategory());
             dto.setMetrics(mDto);
+        }
+
+        if (job.getMatchPoints() != null && !job.getMatchPoints().isEmpty()) {
+            dto.setMatchPoints(job.getMatchPoints().stream()
+                .map(p -> new MatchPointDTO(p.getSourceX(), p.getSourceY(), p.getReferenceX(), p.getReferenceY(), p.getIsInlier()))
+                .toList());
         }
 
         dto.setCreatedAt(job.getCreatedAt());

@@ -1,0 +1,64 @@
+{
+  "pair_id": "SUITE_C_PAIR_04",
+  "data_category": "SYNTHETIC_BENCHMARK",
+  "is_synthetic": true,
+  "challenge_description": "Moderate 4x scale gap",
+  "image_1": {
+    "provenance_schema_version": "1.1",
+    "timestamp_created_utc": "2026-09-01T06:31:08Z",
+    "data_category": "SYNTHETIC_BENCHMARK",
+    "is_synthetic": true,
+    "product_id": "SUITE_C_PAIR_04_SYNTH_IMG1",
+    "instrument_id": "CH2_TMC2",
+    "target_name": "Moon (Synthetic Simulation)",
+    "acquisition_time_utc": "2026-09-01T00:00:00Z",
+    "solar_geometry": {
+      "sun_azimuth_deg": 60.0,
+      "incidence_angle_deg": 45.0,
+      "emission_angle_deg": null,
+      "phase_angle_deg": null
+    },
+    "spatial_bounds": {
+      "min_lat": null,
+      "max_lat": null,
+      "min_lon": null,
+      "max_lon": null,
+      "gsd_m": 1.2
+    },
+    "projection": "Simple Cylindrical (Simulation Frame)",
+    "file_integrity": {
+      "image_filename": "image_1.png",
+      "image_path": "data/benchmark/suite_c_scale_disparity/pair_04_scale_4x/image_1.png",
+      "sha256_checksum": "27f58972126fdd64b885dddf016bedffce7a9c48b268241a5ce409ab002f76b5",
+      "file_size_bytes": 29222,
+      "raw_label_path": "data/benchmark/suite_c_scale_disparity/pair_04_scale_4x/ground_truth.json"
+    },
+    "source_provenance": {
+      "source_portal": "internal://synthetic_generator/lunar_surface_dem",
+      "license_type": "Open Research Dataset",
+      "notes": "Synthetic Simulation of CH2_TMC2"
+    }
+  },
+  "image_2_simulated_sensor": "CH2_OHRC",
+  "image_2_gsd_m": 0.3,
+  "delta_sun_azimuth_deg": 5.0,
+  "scale_ratio": 4.0,
+  "cross_modal": false,
+  "ground_truth_homography": [
+    [
+      4.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      4.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ]
+}
